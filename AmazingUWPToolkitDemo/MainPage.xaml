@@ -1,0 +1,24 @@
+﻿<Page x:Class="AmazingUWPToolkitDemo.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid x:Name="LayoutRoot"
+          Background="{ThemeResource WindowBackgroundBrush}">
+        <Pivot Margin="0,32,0,0">
+            <PivotItem Header="ApplicationViewHelper">
+                <StackPanel Margin="0,6">
+                    <Button x:Name="LightThemeButton"
+                            MinWidth="120"
+                            Margin="0,6"
+                            Click="OnLightThemeButtonClick"
+                            Content="Light theme" />
+
+                    <Button x:Name="DarkThemeButton"
+                            MinWidth="120"
+                            Margin="0,6"
+                            Click="OnDarkThemeButtonClick"
+                            Content="Dark theme" />
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>
