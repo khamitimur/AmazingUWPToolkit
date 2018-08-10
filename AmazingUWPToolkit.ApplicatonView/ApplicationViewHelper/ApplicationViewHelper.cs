@@ -96,33 +96,31 @@ namespace AmazingUWPToolkit.ApplicatonView
 
         private void SetTitleBarColorResources()
         {
-            SetColorResource(applicationViewTitleBar.BackgroundColor, applicationViewData.BackgroundColorResource);
-            SetColorResource(applicationViewTitleBar.InactiveBackgroundColor, applicationViewData.InactiveBackgroundColorResource);
-            SetColorResource(applicationViewTitleBar.ForegroundColor, applicationViewData.ForegroundColorResource);
-            SetColorResource(applicationViewTitleBar.InactiveForegroundColor, applicationViewData.InactiveForegroundColorResource);
+            applicationViewTitleBar.BackgroundColor = GetColorResource(applicationViewData.BackgroundColorResource);
+            applicationViewTitleBar.InactiveBackgroundColor = GetColorResource(applicationViewData.InactiveBackgroundColorResource);
+            applicationViewTitleBar.ForegroundColor = GetColorResource(applicationViewData.ForegroundColorResource);
+            applicationViewTitleBar.InactiveForegroundColor = GetColorResource(applicationViewData.InactiveForegroundColorResource);
 
-            SetColorResource(applicationViewTitleBar.ButtonBackgroundColor, applicationViewData.ButtonBackgroundColorResource);
-            SetColorResource(applicationViewTitleBar.ButtonHoverBackgroundColor, applicationViewData.ButtonHoverBackgroundColorResource);
-            SetColorResource(applicationViewTitleBar.ButtonPressedBackgroundColor, applicationViewData.ButtonPressedBackgroundColorResource);
-            SetColorResource(applicationViewTitleBar.ButtonInactiveBackgroundColor, applicationViewData.ButtonInactiveBackgroundColorResource);
+            applicationViewTitleBar.ButtonBackgroundColor = GetColorResource(applicationViewData.ButtonBackgroundColorResource);
+            applicationViewTitleBar.ButtonHoverBackgroundColor = GetColorResource(applicationViewData.ButtonHoverBackgroundColorResource);
+            applicationViewTitleBar.ButtonPressedBackgroundColor = GetColorResource(applicationViewData.ButtonPressedBackgroundColorResource);
+            applicationViewTitleBar.ButtonInactiveBackgroundColor = GetColorResource(applicationViewData.ButtonInactiveBackgroundColorResource);
 
-            SetColorResource(applicationViewTitleBar.ButtonForegroundColor, applicationViewData.ButtonForegroundColorResource);
-            SetColorResource(applicationViewTitleBar.ButtonForegroundColor, applicationViewData.ButtonHoverForegroundColorResource);
-            SetColorResource(applicationViewTitleBar.ButtonForegroundColor, applicationViewData.ButtonPressedForegroundColorResource);
-            SetColorResource(applicationViewTitleBar.ButtonForegroundColor, applicationViewData.ButtonInactiveForegroundColorResource);
+            applicationViewTitleBar.ButtonForegroundColor = GetColorResource(applicationViewData.ButtonForegroundColorResource);
+            applicationViewTitleBar.ButtonHoverForegroundColor = GetColorResource(applicationViewData.ButtonHoverForegroundColorResource);
+            applicationViewTitleBar.ButtonPressedForegroundColor = GetColorResource(applicationViewData.ButtonPressedForegroundColorResource);
+            applicationViewTitleBar.ButtonInactiveForegroundColor = GetColorResource(applicationViewData.ButtonInactiveForegroundColorResource);
         }
 
-        private void SetColorResource(Color? targetColor, string colorResource)
+        private Color? GetColorResource(string colorResource)
         {
             if (!string.IsNullOrWhiteSpace(colorResource) &&
                 Application.Current.Resources.TryGetValue(colorResource, out object colorResourceValue))
             {
-                targetColor = (Color)colorResourceValue;
+                return (Color)colorResourceValue;
             }
-            else
-            {
-                targetColor = null;
-            }
+
+            return null;
         }
 
         #endregion
