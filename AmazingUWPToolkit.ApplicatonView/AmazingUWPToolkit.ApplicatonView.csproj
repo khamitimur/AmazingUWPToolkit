@@ -107,7 +107,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApplicationViewData\ApplicationViewData.cs" />
+    <Compile Include="ApplicationViewData\DefaultApplicationViewData.cs" />
     <Compile Include="ApplicationViewHelper\ApplicationViewHelper.cs" />
     <Compile Include="ApplicationViewHelper\IApplicationViewHelper.cs" />
     <Compile Include="ApplicationViewData\IApplicationViewData.cs" />

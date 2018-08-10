@@ -5,7 +5,7 @@ namespace AmazingUWPToolkit.ApplicatonView
     /// <summary>
     /// Default implementation of <see cref="IApplicationViewData"/>.
     /// </summary>
-    public class ApplicationViewData : IApplicationViewData
+    public class DefaultApplicationViewData : IApplicationViewData
     {
         #region Fields
 
@@ -16,7 +16,7 @@ namespace AmazingUWPToolkit.ApplicatonView
         #region Contructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationViewData"/>.
+        /// Initializes a new instance of the <see cref="DefaultApplicationViewData"/>.
         /// </summary>
         /// <param name="backgroundColorResource"></param>
         /// <param name="inactiveBackgroundColorResource"></param>
@@ -33,21 +33,21 @@ namespace AmazingUWPToolkit.ApplicatonView
         /// <param name="extendIntoTitleBar"></param>
         /// <param name="preferredMinSize"></param>
         /// <param name="convertPreferredMinSizeUsingRawPixels"></param>
-        public ApplicationViewData(string backgroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string inactiveBackgroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string foregroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string inactiveForegroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonBackgroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonHoverBackgroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonPressedBackgroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonInactiveBackgroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonForegroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonHoverForegroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonPressedForegroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   string buttonInactiveForegroundColorResource = EMPTY_COLOR_RESOURCE,
-                                   bool extendIntoTitleBar = false,
-                                   Size? preferredMinSize = null,
-                                   bool convertPreferredMinSizeUsingRawPixels = false)
+        public DefaultApplicationViewData(string backgroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string inactiveBackgroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string foregroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string inactiveForegroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonBackgroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonHoverBackgroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonPressedBackgroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonInactiveBackgroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonForegroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonHoverForegroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonPressedForegroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          string buttonInactiveForegroundColorResource = EMPTY_COLOR_RESOURCE,
+                                          bool extendIntoTitleBar = false,
+                                          Size? preferredMinSize = null,
+                                          bool convertPreferredMinSizeUsingRawPixels = false)
         {
             BackgroundColorResource = backgroundColorResource;
             InactiveBackgroundColorResource = inactiveBackgroundColorResource;

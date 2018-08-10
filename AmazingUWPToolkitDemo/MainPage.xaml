@@ -6,17 +6,18 @@
         <Pivot Margin="0,32,0,0">
             <PivotItem Header="ApplicationViewHelper">
                 <StackPanel Margin="0,6">
-                    <Button x:Name="LightThemeButton"
-                            MinWidth="120"
-                            Margin="0,6"
-                            Click="OnLightThemeButtonClick"
-                            Content="Light theme" />
+                    <TextBlock Style="{StaticResource LongDescriptionTextBlockStyle}"
+                               Text="This project uses `ThemeDictionaries` defined in `App.xaml`. So it can take advantage of `ApplicationViewHelper` to swith `TitleBar` colors along with UI theme color." />
 
-                    <Button x:Name="DarkThemeButton"
-                            MinWidth="120"
-                            Margin="0,6"
-                            Click="OnDarkThemeButtonClick"
-                            Content="Dark theme" />
+                    <TextBlock Style="{StaticResource LongDescriptionTextBlockStyle}"
+                               Margin="0,12,0,0"
+                               Text="Open color settings and change `default app mode` to see it in action." />
+
+                    <Button x:Name="ColorSettingsButton"
+                            Margin="0,8"
+                            MinWidth="180"
+                            Click="OnColorSettingsButtonClick"
+                            Content="Open color settings" />
                 </StackPanel>
             </PivotItem>
         </Pivot>

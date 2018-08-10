@@ -1,5 +1,7 @@
 ﻿using AmazingUWPToolkit.ApplicatonView;
+using System;
 using System.Threading.Tasks;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,21 +33,18 @@ namespace AmazingUWPToolkitDemo
 
         private async Task SetApplicationViewHelperAsync()
         {
-            // Initializes a new instance of ApplicationViewHelper with internal implementation of IApplicationViewData.
+            // Initializes a new instance of a ApplicationViewHelper with internal implementation of IApplicationViewData.
+            // Also you can use default implementation of IApplicationViewData.
             var applicationViewHelper = new ApplicationViewHelper(new ApplicationViewData());
             await applicationViewHelper.SetAsync();
         }
 
-        private void OnLightThemeButtonClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.RequestedTheme = ApplicationTheme.Light;
-        }
-
-        private void OnDarkThemeButtonClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.RequestedTheme = ApplicationTheme.Dark;
-        }
-
         #endregion
+
+        private async void OnColorSettingsButtonClick(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("ms-settings:personalization-colors"));
+
+        }
     }
 }
