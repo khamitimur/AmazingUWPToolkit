@@ -3,19 +3,19 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid x:Name="LayoutRoot"
           Background="{ThemeResource WindowBackgroundBrush}">
-        <Pivot Margin="0,32,0,0">
+        <Pivot Margin="{x:Bind ApplicationViewHelper.TitleBarMargin, Mode=OneWay}">
             <PivotItem Header="ApplicationViewHelper">
                 <StackPanel Margin="0,6">
                     <TextBlock Style="{StaticResource LongDescriptionTextBlockStyle}"
                                Text="This project uses `ThemeDictionaries` defined in `App.xaml`. So it can take advantage of `ApplicationViewHelper` to swith `TitleBar` colors along with UI theme color." />
 
-                    <TextBlock Style="{StaticResource LongDescriptionTextBlockStyle}"
-                               Margin="0,12,0,0"
+                    <TextBlock Margin="0,12,0,0"
+                               Style="{StaticResource LongDescriptionTextBlockStyle}"
                                Text="Open color settings and change `default app mode` to see it in action." />
 
                     <Button x:Name="ColorSettingsButton"
-                            Margin="0,8"
                             MinWidth="180"
+                            Margin="0,8"
                             Click="OnColorSettingsButtonClick"
                             Content="Open color settings" />
                 </StackPanel>
