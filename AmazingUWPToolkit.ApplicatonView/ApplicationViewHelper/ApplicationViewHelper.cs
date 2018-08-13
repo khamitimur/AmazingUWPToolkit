@@ -55,6 +55,9 @@ namespace AmazingUWPToolkit.ApplicatonView
         public double TitleBarHeight { get; private set; }
 
         /// <inheritdoc/>
+        public Thickness TitleBarMargin { get; private set; }
+
+        /// <inheritdoc/>
         public async Task SetAsync()
         {
             coreApplicationViewTitleBar.ExtendViewIntoTitleBar = applicationViewData.ExtendIntoTitleBar;
@@ -108,6 +111,8 @@ namespace AmazingUWPToolkit.ApplicatonView
             TitleBarHeight = coreApplicationViewTitleBar.IsVisible
                 ? coreApplicationViewTitleBar.Height
                 : 0;
+
+            TitleBarMargin = new Thickness(0, TitleBarHeight, 0, 0);
         }
 
         private async Task SetTitleBarAsync()
