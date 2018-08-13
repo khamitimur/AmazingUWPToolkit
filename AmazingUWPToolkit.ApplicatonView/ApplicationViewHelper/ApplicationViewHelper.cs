@@ -7,10 +7,11 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using System;
+using System.ComponentModel;
 
 namespace AmazingUWPToolkit.ApplicatonView
 {
-    public class ApplicationViewHelper : IApplicationViewHelper
+    public class ApplicationViewHelper : IApplicationViewHelper, INotifyPropertyChanged
     {
         #region Fields
 
@@ -40,6 +41,9 @@ namespace AmazingUWPToolkit.ApplicatonView
             coreApplicationViewTitleBar = CoreApplication.GetCurrentView().TitleBar;
             applicationViewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
 
+            coreApplicationViewTitleBar.IsVisibleChanged += OnCoreApplicationViewTitleBarIsVisibleChanged;
+            coreApplicationViewTitleBar.LayoutMetricsChanged += OnCoreApplicationViewTitleBarLayoutMetricsChanged;
+
             coreDispatcher = CoreApplication.GetCurrentView().CoreWindow.Dispatcher;
         }
 
@@ -47,6 +51,10 @@ namespace AmazingUWPToolkit.ApplicatonView
 
         #region Implementation of IApplicationViewHelper
 
+        /// <inheritdoc/>
+        public double TitleBarHeight { get; private set; }
+
+        /// <inheritdoc/>
         public async Task SetAsync()
         {
             coreApplicationViewTitleBar.ExtendViewIntoTitleBar = applicationViewData.ExtendIntoTitleBar;
@@ -72,11 +80,34 @@ namespace AmazingUWPToolkit.ApplicatonView
 
         #endregion
 
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
         #region Private Methods
 
         private async void OnUiSettingsColorValuesChanged(UISettings sender, object args)
         {
             await SetTitleBarAsync();
+        }
+
+        private void OnCoreApplicationViewTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            SetTitleBarHeight();
+        }
+
+        private void OnCoreApplicationViewTitleBarIsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            SetTitleBarHeight();
+        }
+
+        private void SetTitleBarHeight()
+        {
+            TitleBarHeight = coreApplicationViewTitleBar.IsVisible
+                ? coreApplicationViewTitleBar.Height
+                : 0;
         }
 
         private async Task SetTitleBarAsync()
