@@ -20,6 +20,9 @@ var applicationViewHelper = new ApplicationViewHelper(applicationViewData);
 await applicationViewHelper.SetAsync();
 ```
 
+## Tools used
+- [InheritDoc](https://www.inheritdoc.io/)
+
 ## Libraries used
 
 - [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged)
