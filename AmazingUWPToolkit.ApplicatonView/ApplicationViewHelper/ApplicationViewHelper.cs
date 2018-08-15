@@ -23,6 +23,9 @@ namespace AmazingUWPToolkit.ApplicatonView
 
         private readonly CoreDispatcher coreDispatcher;
 
+        private double titleBarHeight;
+        private Thickness titleBarMargin;
+
         #endregion
 
         #region Constructor
@@ -52,10 +55,28 @@ namespace AmazingUWPToolkit.ApplicatonView
         #region Implementation of IApplicationViewHelper
 
         /// <inheritdoc/>
-        public double TitleBarHeight { get; private set; }
+        public double TitleBarHeight
+        {
+            get { return titleBarHeight; }
+            set
+            {
+                if (Equals(value, titleBarHeight)) return;
+                titleBarHeight = value;
+                OnPropertyChanged(nameof(TitleBarHeight));
+            }
+        }
 
         /// <inheritdoc/>
-        public Thickness TitleBarMargin { get; private set; }
+        public Thickness TitleBarMargin
+        {
+            get { return titleBarMargin; }
+            set
+            {
+                if (Equals(value, titleBarMargin)) return;
+                titleBarMargin = value;
+                OnPropertyChanged(nameof(TitleBarMargin));
+            }
+        }
 
         /// <inheritdoc/>
         public async Task SetAsync()
@@ -86,6 +107,15 @@ namespace AmazingUWPToolkit.ApplicatonView
         #region Implementation of INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Protected Methods
+
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         #endregion
 

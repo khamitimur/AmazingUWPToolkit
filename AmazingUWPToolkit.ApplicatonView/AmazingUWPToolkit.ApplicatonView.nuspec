@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/khamitimur/AmazingUWPToolkit/blob/develop/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/khamitimur/AmazingUWPToolkit/tree/develop/AmazingUWPToolkit.ApplicatonView</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Small library to help you to take control of a CoreApplicationViewTitleBar and a ApplicationViewTitleBar
+      in a scenario when you have your collection of brushes for a TitleBar defined as ThemeResource's
+      and you want them to change along UI theme color.</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>CoreApplicationViewTitleBar ApplicationViewTitleBar uwp ThemeResources TitleBar</tags>
+  </metadata>
+</package>
