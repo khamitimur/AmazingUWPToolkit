@@ -3,7 +3,7 @@
 namespace AmazingUWPToolkit.ApplicatonView
 {
     /// <summary>
-    /// Interface for a model that holds application view data.
+    /// Holds application view data.
     /// </summary>
     public interface IApplicationViewData
     {

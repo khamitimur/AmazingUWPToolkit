@@ -2,9 +2,7 @@
 
 namespace AmazingUWPToolkit.ApplicatonView
 {
-    /// <summary>
-    /// Default implementation of <see cref="IApplicationViewData"/>.
-    /// </summary>
+    /// <inheritdoc/>
     public class DefaultApplicationViewData : IApplicationViewData
     {
         #region Fields
@@ -18,21 +16,21 @@ namespace AmazingUWPToolkit.ApplicatonView
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultApplicationViewData"/>.
         /// </summary>
-        /// <param name="backgroundColorResource"></param>
-        /// <param name="inactiveBackgroundColorResource"></param>
-        /// <param name="foregroundColorResource"></param>
-        /// <param name="inactiveForegroundColorResource"></param>
-        /// <param name="buttonBackgroundColorResource"></param>
-        /// <param name="buttonHoverBackgroundColorResource"></param>
-        /// <param name="buttonPressedBackgroundColorResource"></param>
-        /// <param name="buttonInactiveBackgroundColorResource"></param>
-        /// <param name="buttonForegroundColorResource"></param>
-        /// <param name="buttonHoverForegroundColorResource"></param>
-        /// <param name="buttonPressedForegroundColorResource"></param>
-        /// <param name="buttonInactiveForegroundColorResource"></param>
-        /// <param name="extendIntoTitleBar"></param>
-        /// <param name="preferredMinSize"></param>
-        /// <param name="convertPreferredMinSizeUsingRawPixels"></param>
+        /// <param name="backgroundColorResource">Name of a color resource for the background color of a title bar.</param>
+        /// <param name="inactiveBackgroundColorResource">Name of a color resource for the background color of a title bar when it's inactive.</param>
+        /// <param name="foregroundColorResource">Name of a color resource for the foreground color of a title bar.</param>
+        /// <param name="inactiveForegroundColorResource">Name of a color resource for the foreground color of a title bar when it's inactive.</param>
+        /// <param name="buttonBackgroundColorResource">Name of a color resource for the background color of a title bar button.</param>
+        /// <param name="buttonHoverBackgroundColorResource">Name of a color resource for the background color of a title bar button when the pointer is over.</param>
+        /// <param name="buttonPressedBackgroundColorResource">Name of a color resource for the background color of a title bar button when it's pressed.</param>
+        /// <param name="buttonInactiveBackgroundColorResource">Name of a color resource for the background color of a title bar button when it's inactive.</param>
+        /// <param name="buttonForegroundColorResource">Name of a color resource for the foreground color of a title bar button.</param>
+        /// <param name="buttonHoverForegroundColorResource">Name of a color resource for the foreground color of a title bar button when the pointer is over.</param>
+        /// <param name="buttonPressedForegroundColorResource">Name of a color resource for the foreground color of a title bar button when it's pressed.</param>
+        /// <param name="buttonInactiveForegroundColorResource">Name of a color resource for the foreground color of a title bar button when it's inactive.</param>
+        /// <param name="extendIntoTitleBar">Specifies whether a title bar should replace the default window title bar.</param>
+        /// <param name="preferredMinSize">Specifies the smallest size allowed for the application window.</param>
+        /// <param name="convertPreferredMinSizeUsingRawPixels">Specifies whether a <paramref name="preferredMinSize"/> will be calculated using raw (physical) pixels.</param>
         public DefaultApplicationViewData(string backgroundColorResource = EMPTY_COLOR_RESOURCE,
                                           string inactiveBackgroundColorResource = EMPTY_COLOR_RESOURCE,
                                           string foregroundColorResource = EMPTY_COLOR_RESOURCE,

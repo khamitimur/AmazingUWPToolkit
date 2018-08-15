@@ -11,7 +11,9 @@ using System.ComponentModel;
 
 namespace AmazingUWPToolkit.ApplicatonView
 {
-    public class ApplicationViewHelper : IApplicationViewHelper, INotifyPropertyChanged
+    /// <inheritdoc/>
+    public class ApplicationViewHelper : IApplicationViewHelper,
+                                         INotifyPropertyChanged
     {
         #region Fields
 
