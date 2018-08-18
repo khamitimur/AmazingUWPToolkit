@@ -4,11 +4,28 @@ using Windows.UI.Xaml.Data;
 
 namespace AmazingUWPToolkit.Converters
 {
+    /// <summary>
+    /// Converts numeric value to <see cref="GridLength"/>.
+    /// </summary>
+    /// <remaks><para>
+    /// Currently supports <see cref="int"/> and <see cref="double"/> values.
+    /// </para></remaks>
     public class NumericValueToGridLengthConverter : DependencyObject,
                                                      IValueConverter
     {
         #region Dependency Properties
 
+        /// <summary>
+        /// Default value to be used when convert is not possible.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Default value is <c>Auto</c>.
+        /// <para>
+        /// This dependency property can be accessed via the <see cref="DefaultValue"/> property.
+        /// </para>
+        /// </para>
+        /// </remarks>
         public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.Register(
             nameof(DefaultValue),
             typeof(GridLength),
@@ -19,6 +36,15 @@ namespace AmazingUWPToolkit.Converters
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the default <see cref="GridLength"/>.
+        /// </summary>
+        /// <value>
+        /// Default value to be used when convert is not possible.
+        /// </value>
+        /// <remaks><para>
+        /// Default value is <c>Auto</c>.
+        /// </para></remaks>
         public GridLength DefaultValue
         {
             get => (GridLength)GetValue(DefaultValueProperty);
@@ -29,6 +55,7 @@ namespace AmazingUWPToolkit.Converters
 
         #region Implementation of IValueConverter
 
+        /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is int intValue)
@@ -44,6 +71,7 @@ namespace AmazingUWPToolkit.Converters
             return DefaultValue;
         }
 
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
