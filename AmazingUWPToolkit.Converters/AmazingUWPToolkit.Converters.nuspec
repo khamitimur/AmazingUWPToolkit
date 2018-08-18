@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Timur Khamidov</authors>
+    <owners>Timur Khamidov</owners>
+    <licenseUrl>https://github.com/khamitimur/AmazingUWPToolkit/blob/develop/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/khamitimur/AmazingUWPToolkit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Small library consisting of useful converters.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <summary>Small library consisting of useful converters.</summary>
+    <copyright>Copyright 2018</copyright>
+    <tags>uwp converters</tags>
+  </metadata>
+  <files>
+    <file src="..\AmazingUWPToolkit.Converters\bin\Release\AmazingUWPToolkit.Converters**" target="lib\uap10.0" />
+  </files>
+</package>
