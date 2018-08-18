@@ -16,7 +16,7 @@ namespace AmazingUWPToolkit.Converters
         #region Dependency Properties
 
         /// <summary>
-        /// Default value to be used when convert is not possible.
+        /// Default <see cref="GridLength"/> to be used when convert is not possible.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -37,11 +37,8 @@ namespace AmazingUWPToolkit.Converters
         #region Properties
 
         /// <summary>
-        /// Gets or sets the default <see cref="GridLength"/>.
+        /// Gets or sets the default <see cref="GridLength"/> to be used when convert is not possible.
         /// </summary>
-        /// <value>
-        /// Default value to be used when convert is not possible.
-        /// </value>
         /// <remaks><para>
         /// Default value is <c>Auto</c>.
         /// </para></remaks>
