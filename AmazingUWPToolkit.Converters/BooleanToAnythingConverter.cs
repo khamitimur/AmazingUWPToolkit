@@ -88,11 +88,6 @@ namespace AmazingUWPToolkit.Converters
         {
             if (value is bool boolValue)
             {
-                if (Invert)
-                {
-                    boolValue = !boolValue;
-                }
-
                 return boolValue
                     ? TrueValue
                     : FalseValue;
