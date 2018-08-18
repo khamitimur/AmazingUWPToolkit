@@ -109,6 +109,7 @@
     <Compile Include="BooleanToAnythingConverter.cs" />
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="InvertBooleanConverter.cs" />
+    <Compile Include="NumericValueToGridLengthConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\AmazingUWPToolkit.Converters.rd.xml" />
   </ItemGroup>
