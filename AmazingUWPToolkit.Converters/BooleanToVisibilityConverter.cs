@@ -4,16 +4,23 @@ using Windows.UI.Xaml.Data;
 
 namespace AmazingUWPToolkit.Converters
 {
+    /// <summary>
+    /// Converts <see cref="bool"/> to <see cref="Visibility"/>.
+    /// </summary>
     public class BooleanToVisibilityConverter : IValueConverter
     {
         #region Properties
 
+        /// <summary>
+        /// Get or sets the value to indicate that result must be inverted.
+        /// </summary>
         public bool Invert { get; set; }
 
         #endregion
 
         #region Implementation of IValueConverter
 
+        /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is bool boolValue)
@@ -31,6 +38,7 @@ namespace AmazingUWPToolkit.Converters
             return null;
         }
 
+        /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
