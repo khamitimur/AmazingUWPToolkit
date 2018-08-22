@@ -20,6 +20,10 @@
                             Content="Open color settings" />
                 </StackPanel>
             </PivotItem>
+
+            <PivotItem Header="Gaze">
+
+            </PivotItem>
         </Pivot>
     </Grid>
 </Page>
