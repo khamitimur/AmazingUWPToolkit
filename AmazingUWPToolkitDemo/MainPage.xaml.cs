@@ -59,5 +59,10 @@ namespace AmazingUWPToolkitDemo
         #endregion
 
         #endregion
+
+        private void GazeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
