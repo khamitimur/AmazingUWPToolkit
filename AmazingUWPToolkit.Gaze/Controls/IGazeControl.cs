@@ -1,16 +1,24 @@
-﻿namespace AmazingUWPToolkit.Gaze.Controls
+﻿using Windows.Foundation;
+
+namespace AmazingUWPToolkit.Gaze.Controls
 {
     public interface IGazeControl
     {
+        #region Methods
+
+        bool IsGazeEnaled { get; }
+
+        #endregion
+
         #region Methods
 
         void OnGazeEntered();
 
         void OnGazeExited();
 
-        void OnGazeOverProgressChanged(double progress);
+        void OnGazeFixationProgressChanged(double progress);
 
-        void OnGazeActionRequested();
+        void OnGazeDwelled(Point point);
 
         #endregion
     }

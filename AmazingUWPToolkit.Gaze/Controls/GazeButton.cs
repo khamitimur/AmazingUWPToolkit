@@ -1,9 +1,10 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
+using System.Diagnostics;
+using Windows.Foundation;
+using Windows.UI.Input.Preview.Injection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Input;
 
 namespace AmazingUWPToolkit.Gaze.Controls
 {
@@ -18,19 +19,22 @@ namespace AmazingUWPToolkit.Gaze.Controls
         private const string ROOT_PANEL_NAME = "RootPanel";
 
         private const string COMMON_VISUALSTATESGROUP_NAME = "CommonStates";
+
         private const string NORMAL_VISUALSTATE_NAME = "Normal";
         private const string POINTEROVER_VISUALSTATE_NAME = "PointerOver";
         private const string PRESSED_VISUALSTATE_NAME = "Pressed";
 
-        private const double GAZE_ENTERED_ANIMATION_DURATION = 200;
-        private const double GAZE_EXITED_ANIMATION_DURATION = 200;
+        private const double GAZE_ENTERED_ANIMATION_DURATION = 300;
+        private const double GAZE_EXITED_ANIMATION_DURATION = 300;
 
-        private const float GAZE_ENTERED_ANIMATION_SCALE = 1.04f;
+        private const float GAZE_ENTERED_ANIMATION_SCALE = 1.06f;
 
         private Panel rootPanel;
 
         private int originalZIndex;
         private bool isScaled;
+
+        InputInjector inputInjector;
 
         #endregion
 
@@ -87,17 +91,14 @@ namespace AmazingUWPToolkit.Gaze.Controls
 
         #endregion
 
-        #region Events
-
-        public event EventHandler GazeActionRequested;
-
-        #endregion
-
         #region Overrides of Control
 
         protected override void OnApplyTemplate()
         {
             rootPanel = GetTemplateChild(ROOT_PANEL_NAME) as Panel;
+
+            var gazeTracker = new GazeTracker(this);
+            gazeTracker.Start();
 
             base.OnApplyTemplate();
         }
@@ -105,6 +106,8 @@ namespace AmazingUWPToolkit.Gaze.Controls
         #endregion
 
         #region Overrides of IGazeControl
+
+        public bool IsGazeEnaled => IsEnabled;
 
         public void OnGazeEntered()
         {
@@ -123,6 +126,8 @@ namespace AmazingUWPToolkit.Gaze.Controls
 
         public void OnGazeExited()
         {
+            inputInjector?.UninitializePenInjection();
+
             VisualStateManager.GoToState(this, NORMAL_VISUALSTATE_NAME, true);
 
             if (rootPanel == null)
@@ -138,12 +143,12 @@ namespace AmazingUWPToolkit.Gaze.Controls
             }
         }
 
-        public void OnGazeOverProgressChanged(double progress)
+        public void OnGazeFixationProgressChanged(double progress)
         {
-
+            Debug.WriteLine(progress);
         }
 
-        public void OnGazeActionRequested()
+        public void OnGazeDwelled(Point point)
         {
             VisualStateManager.GoToState(this, PRESSED_VISUALSTATE_NAME, true);
 
@@ -157,11 +162,7 @@ namespace AmazingUWPToolkit.Gaze.Controls
                 isScaled = false;
             }
 
-            GazeActionRequested?.Invoke(this, EventArgs.Empty);
-
-            var eventInfo = typeof(Button).GetEvent("Click");
-            var eventRaiseMethod = eventInfo.GetRaiseMethod(true);
-            eventRaiseMethod.Invoke(this, new object[] { EventArgs.Empty });
+            InjectInput(point);
         }
 
         #endregion
@@ -179,6 +180,115 @@ namespace AmazingUWPToolkit.Gaze.Controls
                                  centerY,
                                  duration,
                                  easingType: EasingType.Back);
+        }
+
+        private void InjectInput(Point point)
+        {
+            if (inputInjector == null)
+            {
+                inputInjector = InputInjector.TryCreate();
+            }
+
+            if (inputInjector == null)
+                return;
+
+            inputInjector.InitializePenInjection(InjectedInputVisualizationMode.None);
+
+            var pointerId = (uint)new Random().Next(0, int.MaxValue);
+
+            var injectedInputPenInfo = new InjectedInputPenInfo
+            {
+                PointerInfo = new InjectedInputPointerInfo
+                {
+                    PointerId = pointerId,
+                    PixelLocation = new InjectedInputPoint
+                    {
+                        PositionX = (int)point.X,
+                        PositionY = (int)point.Y
+                    },
+                    PointerOptions = InjectedInputPointerOptions.PointerDown |
+                                     InjectedInputPointerOptions.InContact |
+                                     InjectedInputPointerOptions.New
+                 },
+                Pressure = 1.0,
+                PenParameters = InjectedInputPenParameters.Pressure
+            };
+
+            inputInjector.InjectPenInput(injectedInputPenInfo);
+
+            injectedInputPenInfo = new InjectedInputPenInfo
+            {
+                PointerInfo = new InjectedInputPointerInfo
+                {
+                    PointerId = pointerId,
+                    PointerOptions = InjectedInputPointerOptions.PointerUp
+                }
+            };
+
+            inputInjector.InjectPenInput(injectedInputPenInfo);
+
+            //uint pointerId = pointerPoint.PointerId + 1;
+
+            //var appBounds = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().VisibleBounds;
+
+            //Point appBoundsTopLeft = new Point(appBounds.Left, appBounds.Top);
+
+            //var injectArea = ContainerInject.TransformToVisual(Window.Current.Content);
+
+            //Point injectAreaTopLeft = injectArea.TransformPoint(new Point(0, 0));
+
+            //int pointerPointX = (int)pointerPoint.Position.X;
+            //int pointerPointY = (int)pointerPoint.Position.Y;
+
+            //Point injectionPoint =
+            //    new Point(
+            //        appBoundsTopLeft.X + injectAreaTopLeft.X + pointerPointX,
+            //        appBoundsTopLeft.Y + injectAreaTopLeft.Y + pointerPointY);
+
+            //var touchData = new List<InjectedInputTouchInfo>
+            //{
+            //    new InjectedInputTouchInfo
+            //    {
+            //        Contact = new InjectedInputRectangle
+            //        {
+            //            Left = 30, Top = 30, Bottom = 30, Right = 30
+            //        },
+            //        PointerInfo = new InjectedInputPointerInfo
+            //        {
+            //            PointerId = pointerId,
+            //            PointerOptions =
+            //            InjectedInputPointerOptions.PointerDown |
+            //            InjectedInputPointerOptions.InContact |
+            //            InjectedInputPointerOptions.New,
+            //            TimeOffsetInMilliseconds = 0,
+            //            PixelLocation = new InjectedInputPoint
+            //            {
+            //                PositionX = (int)injectionPoint.X ,
+            //                PositionY = (int)injectionPoint.Y
+            //            }
+            //    },
+            //    Pressure = 1.0,
+            //    TouchParameters =
+            //        InjectedInputTouchParameters.Pressure |
+            //        InjectedInputTouchParameters.Contact
+            //    }
+            //};
+
+            //_inputInjector.InjectTouchInput(touchData);
+
+            //touchData = new List<InjectedInputTouchInfo>
+            //{
+            //    new InjectedInputTouchInfo
+            //    {
+            //        PointerInfo = new InjectedInputPointerInfo
+            //        {
+            //            PointerId = pointerId,
+            //            PointerOptions = InjectedInputPointerOptions.PointerUp
+            //        }
+            //    }
+            //};
+
+            //_inputInjector.InjectTouchInput(touchData);
         }
 
         #endregion
