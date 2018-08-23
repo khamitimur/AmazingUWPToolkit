@@ -109,9 +109,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApplicationViewHelper\ApplicationViewHelper.cs" />
-    <Compile Include="ApplicationViewHelper\IApplicationViewData.cs" />
-    <Compile Include="ApplicationViewHelper\IApplicationViewHelper.cs" />
     <Compile Include="ExtendedObservableCollection.cs" />
     <Compile Include="UnixTimeHelper\IUnixTimeHelper.cs" />
     <Compile Include="LoadingTracker\ILoadingTracker.cs" />
@@ -130,12 +127,6 @@
     <PackageReference Include="NullGuard.Fody">
       <Version>1.8.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AmazingUWPToolkit.Extensions\AmazingUWPToolkit.Extensions.csproj">
-      <Project>{3047fbc5-be43-4be1-97d5-771df320594c}</Project>
-      <Name>AmazingUWPToolkit.Extensions</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
