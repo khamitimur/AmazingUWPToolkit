@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmazingUWPToolkit.Gaze.Controls;
+using System;
 using Windows.Devices.Input.Preview;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -12,23 +13,25 @@ namespace AmazingUWPToolkit.Gaze
         #region Fields
 
         private const double TIMER_INTERVAL = 20;
-        private const double ACTION_INTERVAL = 200;
+        private const double ACTION_INTERVAL = 400;
 
         private static GazeDeviceWatcherPreview gazeDeviceWatcherPreview;
         private static GazeInputSourcePreview gazeInputSourcePreview;
 
-        private static DispatcherTimer timer;
-        private static bool timerStarted;
+        private readonly IGazeControl gazeControl;
 
-        private readonly Control control;
+        private static DispatcherTimer timer;
+        private double currentTimerValue;
+        private bool isFocused;
+        private bool isGazeDwelledCalled;
 
         #endregion
 
         #region Contructor
 
-        public GazeTracker(Control control)
+        public GazeTracker(IGazeControl gazeControl)
         {
-            this.control = control;
+            this.gazeControl = gazeControl;
 
             gazeDeviceWatcherPreview = GazeInputSourcePreview.CreateWatcher();
 
@@ -65,10 +68,6 @@ namespace AmazingUWPToolkit.Gaze
                 gazeDeviceWatcherPreview = null;
             }
         }
-
-        #endregion
-
-        #region Public Methods
 
         #endregion
 
@@ -129,9 +128,11 @@ namespace AmazingUWPToolkit.Gaze
             gazeInputSourcePreview.GazeMoved -= OnGazeInputSourcePreviewGazeMoved;
         }
 
+        Point lastHitPoint;
+
         private void OnGazeInputSourcePreviewGazeMoved(GazeInputSourcePreview sender, GazeMovedPreviewEventArgs args)
         {
-            if (control == null)
+            if (gazeControl == null)
                 return;
 
             if (args.CurrentPoint.EyeGazePosition != null)
@@ -139,28 +140,34 @@ namespace AmazingUWPToolkit.Gaze
                 double gazePointX = args.CurrentPoint.EyeGazePosition.Value.X;
                 double gazePointY = args.CurrentPoint.EyeGazePosition.Value.Y;
 
-                //double ellipseLeft = gazePointX - (eyeGazePositionEllipse.Width / 2.0f);
-                //double ellipseTop =  gazePointY - (eyeGazePositionEllipse.Height / 2.0f) - (int)Header.ActualHeight;
-
-                //var translateEllipse = new TranslateTransform
-                //{
-                //    X = ellipseLeft,
-                //    Y = ellipseTop
-                //};
-
-                //eyeGazePositionEllipse.RenderTransform = translateEllipse;
-
                 var gazePoint = new Point(gazePointX, gazePointY);
 
                 var doesHitControl = DoesElementContainPoint(gazePoint);
 
                 if (doesHitControl)
                 {
-                    VisualStateManager.GoToState(control, "GazeOver", true);
+                    lastHitPoint = gazePoint;
+
+                    if (isFocused)
+                        return;
+
+                    isFocused = true;
+
+                    gazeControl.OnGazeEntered();
+
+                    StartTimer();
                 }
                 else
                 {
-                    VisualStateManager.GoToState(control, "GazeNormal", true);
+                    if (!isFocused)
+                        return;
+
+                    isFocused = false;
+
+                    StopTimer();
+
+                    gazeControl.OnGazeFixationProgressChanged(0);
+                    gazeControl.OnGazeExited();
                 }
 
                 args.Handled = true;
@@ -169,34 +176,49 @@ namespace AmazingUWPToolkit.Gaze
 
         private bool DoesElementContainPoint(Point gazePoint)
         {
-            var uielements = VisualTreeHelper.FindElementsInHostCoordinates(gazePoint, control, true);
+            var uielements = VisualTreeHelper.FindElementsInHostCoordinates(gazePoint, gazeControl as Control, true);
             foreach (var uielement in uielements)
             {
                 if (uielement is FrameworkElement frameworkElement)
                 {
-                    if (frameworkElement == control)
-                    {
-                        //if (!timerStarted)
-                        //{
-                        //    timer.Start();
-                        //    timerStarted = true;
-                        //}
-
+                    if (frameworkElement == gazeControl)
                         return true;
-                    }
                 }
             }
-
-            timer.Stop();
-
-            timerStarted = false;
 
             return false;
         }
 
-        private static void OnTimerTick(object sender, object e)
+        private void StartTimer()
         {
+            currentTimerValue = 0;
+            isGazeDwelledCalled = false;
 
+            timer.Start();
+        }
+
+        private void StopTimer()
+        {
+            timer.Stop();
+        }
+
+        private void OnTimerTick(object sender, object e)
+        {
+            if (currentTimerValue >= ACTION_INTERVAL)
+            {
+                if (!isGazeDwelledCalled)
+                {
+                    isGazeDwelledCalled = true;
+
+                    gazeControl?.OnGazeDwelled(lastHitPoint);
+                }
+            }
+            else
+            {
+                currentTimerValue += TIMER_INTERVAL;
+
+                gazeControl?.OnGazeFixationProgressChanged(currentTimerValue);
+            }
         }
 
         #endregion
