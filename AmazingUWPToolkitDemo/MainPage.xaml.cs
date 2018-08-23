@@ -59,5 +59,12 @@ namespace AmazingUWPToolkitDemo
         #endregion
 
         #endregion
+
+        private int pressCount = 0;
+
+        private void GazeButton_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).Content = $"Pressed! {++pressCount}";
+        }
     }
 }

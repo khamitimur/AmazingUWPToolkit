@@ -23,10 +23,13 @@
             </PivotItem>
 
             <PivotItem Header="Gaze">
-                <StackPanel Margin="0,6">
-                    <gazeControls:GazeButton Width="200"
-                                             Content="Gaze Button" />
-                </StackPanel>
+                <Grid Margin="0,6">
+                    <StackPanel>
+                        <gazeControls:GazeButton Width="200"
+                                                 Click="GazeButton_Click"
+                                                 Content="Gaze Button" />
+                    </StackPanel>
+                </Grid>
             </PivotItem>
         </Pivot>
     </Grid>
