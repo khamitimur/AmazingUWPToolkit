@@ -26,6 +26,7 @@ await applicationViewHelper.SetAsync();
 ## Libraries used
 
 - [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged)
+- [NullGuard.Fody](https://github.com/Fody/NullGuard)
 - [Microsoft.Toolkit.Uwp.UI.Animations](https://github.com/Microsoft/WindowsCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Animations)
 
 ## License
