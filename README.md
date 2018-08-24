@@ -10,7 +10,7 @@ Currently it's under kinda active development. I will update README after each n
 
 Will help you to take control of a [`CoreApplicationViewTitleBar`](https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.core.coreapplicationviewtitlebar) and a [`ApplicationViewTitleBar`](https://docs.microsoft.com/en-us/uwp/api/windows.ui.viewmanagement.applicationviewtitlebar) in a scenario when you have your collection of brushes for a `TitleBar` defined as `ThemeResource`'s and you want them to change along UI theme color.
 
-### How to use
+### Example
 
 ```cs
 // Your implementation of IApplicationViewData.
@@ -20,14 +20,14 @@ var applicationViewHelper = new ApplicationViewHelper(applicationViewData);
 await applicationViewHelper.SetAsync();
 ```
 
-## Tools used
-- [InheritDoc](https://www.inheritdoc.io/)
-
 ## Libraries used
 
 - [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged)
 - [NullGuard.Fody](https://github.com/Fody/NullGuard)
 - [Microsoft.Toolkit.Uwp.UI.Animations](https://github.com/Microsoft/WindowsCommunityToolkit/tree/master/Microsoft.Toolkit.Uwp.UI.Animations)
+
+## Tools used
+- [InheritDoc](https://www.inheritdoc.io/)
 
 ## License
 
