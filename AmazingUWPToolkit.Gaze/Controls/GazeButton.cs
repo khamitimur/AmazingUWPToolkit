@@ -97,7 +97,8 @@ namespace AmazingUWPToolkit.Gaze.Controls
         {
             rootPanel = GetTemplateChild(ROOT_PANEL_NAME) as Panel;
 
-            var gazeTracker = new GazeTracker(this);
+            var gazeTracker = Gaze.GetInstance();
+            gazeTracker.AddControl(this);
             gazeTracker.Start();
 
             base.OnApplyTemplate();
@@ -127,6 +128,7 @@ namespace AmazingUWPToolkit.Gaze.Controls
         public void OnGazeExited()
         {
             inputInjector?.UninitializePenInjection();
+            inputInjector = null;
 
             VisualStateManager.GoToState(this, NORMAL_VISUALSTATE_NAME, true);
 

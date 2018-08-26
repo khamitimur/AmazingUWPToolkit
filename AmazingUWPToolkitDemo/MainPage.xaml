@@ -28,6 +28,11 @@
                         <gazeControls:GazeButton Width="200"
                                                  Click="GazeButton_Click"
                                                  Content="Gaze Button" />
+
+                        <gazeControls:GazeButton Width="200"
+                                                 Margin="0,100,0,0"
+                                                 Click="GazeButton_Click_1"
+                                                 Content="Gaze Button 2" />
                     </StackPanel>
                 </Grid>
             </PivotItem>

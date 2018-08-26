@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Controls\GazeButton.cs" />
     <Compile Include="Controls\IGazeControl.cs" />
+    <Compile Include="Gaze.cs" />
     <Compile Include="GazeTracker\GazeTracker.cs" />
     <Compile Include="GazeTracker\IGazeTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
