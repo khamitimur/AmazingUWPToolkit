@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 
-namespace AmazingUWPToolkit.Controls.FontIconFxd
+namespace AmazingUWPToolkit.Controls
 {
     /// <summary>
     /// Extension for <see cref="FontIcon"/> that fixes issues with applying style.
