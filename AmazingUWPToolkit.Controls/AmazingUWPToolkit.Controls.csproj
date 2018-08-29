@@ -96,6 +96,7 @@
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
     <DocumentationFile>
     </DocumentationFile>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -113,21 +114,20 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CharItemsPanel\CharItemsCollectionHelper\CharItemsCollectionHelper.cs" />
-    <Compile Include="CharItemsPanel\CharItemsCollectionHelper\ICharItemsCollectionHelper.cs" />
-    <Compile Include="CharItemsPanel\CharItemsPanel.xaml.cs">
-      <DependentUpon>CharItemsPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CharItemsPanel\ICharItem\CharItem.cs" />
-    <Compile Include="CharItemsPanel\CharItemControl.cs" />
-    <Compile Include="CharItemsPanel\ICharItem\ICharItem.cs" />
     <Compile Include="FontIconFxd\FontIconFxd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshListView.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshState.cs" />
+    <Compile Include="TextBoard\TextBoard.cs" />
+    <Compile Include="TextBoard\TextBoardItemControl.cs" />
+    <Compile Include="TextBoard\TextBoardItem\ITextBoardItem.cs" />
+    <Compile Include="TextBoard\TextBoardItem\TextBoardItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AmazingUWPToolkit.Converters">
+      <Version>0.0.1</Version>
+    </PackageReference>
     <PackageReference Include="JetBrains.Annotations">
       <Version>2018.2.1</Version>
     </PackageReference>
@@ -145,10 +145,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CharItemsPanel\CharItemsPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,6 +159,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

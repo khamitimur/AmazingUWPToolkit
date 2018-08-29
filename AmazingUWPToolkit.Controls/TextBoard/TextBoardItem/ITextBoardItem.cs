@@ -1,16 +1,15 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System;
 
 namespace AmazingUWPToolkit.Controls
 {
-    internal interface ICharItem
+    public interface ITextBoardItem
     {
         #region Properties
 
         [CanBeNull]
-        ICharItem PreviousCharItem { get; }
+        ITextBoardItem PreviousState { get; }
 
-        [NotNull]
         char Char { get; }
 
         bool IsRandom { get; }
@@ -25,9 +24,7 @@ namespace AmazingUWPToolkit.Controls
 
         #region Methods
 
-        void Update([NotNull] ICharItem charItem);
-
-        void Update(char @char, bool isRandom);
+        void Update([NotNull] ITextBoardItem textBoardItem);
 
         #endregion
     }
