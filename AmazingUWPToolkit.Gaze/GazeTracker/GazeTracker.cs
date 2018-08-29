@@ -158,17 +158,14 @@ namespace AmazingUWPToolkit.Gaze
             if (args.CurrentPoint.EyeGazePosition == null)
             {
                 DiscardCurrentControlUnderGaze();
+
+                return;
             }
 
-            var gazePointX = args.CurrentPoint.EyeGazePosition?.X;
-            var gazePointY = args.CurrentPoint.EyeGazePosition?.Y;
+            var gazePointX = args.CurrentPoint.EyeGazePosition.Value.X;
+            var gazePointY = args.CurrentPoint.EyeGazePosition.Value.Y;
 
-            if (gazePointX == null || gazePointY == null)
-            {
-                DiscardCurrentControlUnderGaze();
-            }
-
-            var gazePoint = new Point(gazePointX.Value, gazePointY.Value);
+            var gazePoint = new Point(gazePointX, gazePointY);
 
             var controlUnderGaze = FindControlUnderGaze(gazePoint);
             if (controlUnderGaze == null)
