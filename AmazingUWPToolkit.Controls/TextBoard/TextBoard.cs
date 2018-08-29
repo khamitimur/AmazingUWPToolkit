@@ -23,6 +23,7 @@ namespace AmazingUWPToolkit.Controls
         private const int MIN_SPACE_LENGTH_BETWEEN_WORDS = 1;
 
         private Random charItemsRandom;
+        private bool isInitialTextSet;
 
         #endregion
 
@@ -197,7 +198,8 @@ namespace AmazingUWPToolkit.Controls
 
             SetSizes();
 
-            if (!string.IsNullOrWhiteSpace(Text))
+            if (!isInitialTextSet &&
+                !string.IsNullOrWhiteSpace(Text))
             {
                 SetText();
             }
@@ -256,6 +258,8 @@ namespace AmazingUWPToolkit.Controls
         {
             if (!IsInitialized)
                 return;
+
+            isInitialTextSet = true;
 
             if (string.IsNullOrWhiteSpace(Text))
             {
