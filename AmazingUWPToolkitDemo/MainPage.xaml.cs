@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace AmazingUWPToolkitDemo
 {
@@ -15,8 +16,6 @@ namespace AmazingUWPToolkitDemo
         public MainPage()
         {
             InitializeComponent();
-
-            Loaded += OnLoaded;
         }
 
         #endregion
@@ -33,12 +32,16 @@ namespace AmazingUWPToolkitDemo
 
         #endregion
 
-        #region Private Methods
+        #region Overrides of Page
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             await SetApplicationViewHelperAsync();
+
+            base.OnNavigatedTo(e);
         }
+
+        #endregion
 
         #region ApplicationViewHelper
 
@@ -58,19 +61,21 @@ namespace AmazingUWPToolkitDemo
 
         #endregion
 
-        #endregion
+        #region Gaze
 
         private int pressCount = 0;
         private int pressCount1 = 0;
 
-        private void GazeButton_Click(object sender, RoutedEventArgs e)
+        private void OnFirstGazeButtonClick(object sender, RoutedEventArgs e)
         {
             (sender as Button).Content = $"Pressed! {++pressCount}";
         }
 
-        private void GazeButton_Click_1(object sender, RoutedEventArgs e)
+        private void OnSecondGazeButtonClick(object sender, RoutedEventArgs e)
         {
             (sender as Button).Content = $"Pressed! {++pressCount1}";
         }
+
+        #endregion
     }
 }

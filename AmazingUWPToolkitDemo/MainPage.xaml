@@ -58,13 +58,13 @@
                         </Grid.RowDefinitions>
                         
                         <gazeControls:GazeButton Width="200"
-                                                 Click="GazeButton_Click"
+                                                 Click="OnFirstGazeButtonClick"
                                                  Content="Gaze Button" />
 
                         <gazeControls:GazeButton Width="200"
                                                  Grid.Row="2"
-                                                 Click="GazeButton_Click_1"
-                                                 Content="Gaze Button 2" />
+                                                 Click="OnSecondGazeButtonClick"
+                                                 Content="Gaze Button" />
                     </Grid>
                 </Grid>
             </PivotItem>
