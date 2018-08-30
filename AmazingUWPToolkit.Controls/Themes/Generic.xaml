@@ -221,18 +221,18 @@
     </Style>
 
     <Style TargetType="controls:TextBoardItemControl">
-        <Setter Property="RandomTextBoardItemOpacity" Value="0.05" />
+        <Setter Property="RandomTextBoardItemOpacity" Value="0.5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:TextBoardItemControl">
                     <Grid x:Name="RootPanel"
                           VerticalAlignment="Top">
                         <TextBlock Style="{StaticResource TextBoardItemTextBlockStyleStyle}"
-                                   Foreground="{ThemeResource ForegroundBrush}"
+                                   Foreground="Black"
                                    FontSize="{TemplateBinding FontSize}" />
 
                         <TextBlock Style="{StaticResource TextBoardItemTextBlockStyleStyle}"
-                                   Foreground="{ThemeResource ForegroundBrush}"
+                                   Foreground="Black"
                                    FontSize="{TemplateBinding FontSize}" />
                     </Grid>
                 </ControlTemplate>

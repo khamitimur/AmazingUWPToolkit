@@ -1,10 +1,36 @@
 ﻿<Page x:Class="AmazingUWPToolkitDemo.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:AmazingUWPToolkit.Controls"
       xmlns:gazeControls="using:AmazingUWPToolkit.Gaze.Controls">
     <Grid x:Name="LayoutRoot"
           Background="{ThemeResource WindowBackgroundBrush}">
         <Pivot Margin="{x:Bind ApplicationViewHelper.TitleBarMargin, Mode=OneWay}">
+            <PivotItem Header="TextBoard">
+                <Grid Margin="0,6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <controls:TextBoard x:Name="TextBoard"
+                                        ColumnsCount="11"
+                                        RandomCharsSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+                                        RowsCount="11" />
+
+                    <TextBox Grid.Row="1"
+                             PlaceholderText="TYPE SOMETHING HERE..."
+                             Width="400"
+                             MinHeight="52"
+                             Margin="20"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Bottom"
+                             AcceptsReturn="True"
+                             Text="{Binding ElementName=TextBoard, Path=Text, Mode=TwoWay}"
+                             TextWrapping="Wrap" />
+                </Grid>
+            </PivotItem>
+
             <PivotItem Header="ApplicationViewHelper">
                 <StackPanel Margin="0,6">
                     <TextBlock Style="{StaticResource LongDescriptionTextBlockStyle}"
@@ -24,16 +50,22 @@
 
             <PivotItem Header="Gaze">
                 <Grid Margin="0,6">
-                    <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
                         <gazeControls:GazeButton Width="200"
                                                  Click="GazeButton_Click"
                                                  Content="Gaze Button" />
 
                         <gazeControls:GazeButton Width="200"
-                                                 Margin="0,100,0,0"
+                                                 Grid.Row="2"
                                                  Click="GazeButton_Click_1"
                                                  Content="Gaze Button 2" />
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </PivotItem>
         </Pivot>
