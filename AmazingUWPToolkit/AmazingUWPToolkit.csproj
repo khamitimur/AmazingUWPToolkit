@@ -109,7 +109,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ExtendedObservableCollection.cs" />
     <Compile Include="UnixTimeHelper\IUnixTimeHelper.cs" />
     <Compile Include="LoadingTracker\ILoadingTracker.cs" />
     <Compile Include="LoadingTracker\ILoadSupportedViewModel.cs" />
