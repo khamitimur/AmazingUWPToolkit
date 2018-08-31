@@ -6,6 +6,69 @@
     <Grid x:Name="LayoutRoot"
           Background="{ThemeResource WindowBackgroundBrush}">
         <Pivot Margin="{x:Bind ApplicationViewHelper.TitleBarMargin, Mode=OneWay}">
+            <PivotItem Header="Controls">
+                <Grid Margin="0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="12" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="12" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock FontSize="15"
+                                   FontWeight="Medium"
+                                   Text="STACKED BAR" />
+
+                        <controls:StackedBar Grid.Row="2"
+                                             Height="8"
+                                             CornerRadius="4"
+                                             Items="{x:Bind StackedBars, Mode=OneWay}"
+                                             Orientation="Horizontal">
+                            <controls:StackedBar.Background>
+                                <SolidColorBrush Opacity="0.1"
+                                                 Color="Black" />
+                            </controls:StackedBar.Background>
+                        </controls:StackedBar>
+
+                        <!--<controls:StackedBar Grid.Row="2"
+                                             Height="200"
+                                             Width="40"
+                                             CornerRadius="4"
+                                             Items="{x:Bind StackedBars, Mode=OneWay}"
+                                             Orientation="Vertical">
+                            <controls:StackedBar.Background>
+                                <SolidColorBrush Opacity="0.1"
+                                                 Color="Black" />
+                            </controls:StackedBar.Background>
+                        </controls:StackedBar>-->
+
+                        <StackPanel Grid.Row="4"
+                                    Orientation="Horizontal">
+                            <Button MinWidth="120"
+                                    Click="OnAddStakedBarItemButtonClick"
+                                    Content="Add" />
+
+                            <Button MinWidth="120"
+                                    Margin="8,0,0,0"
+                                    Click="OnRemoveStakedBarItemButtonClick"
+                                    Content="Remove" />
+
+                            <Button MinWidth="120"
+                                    Margin="8,0,0,0"
+                                    Click="OnResetStakedBarItemButtonClick"
+                                    Content="Reset" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </PivotItem>
+
             <PivotItem Header="TextBoard">
                 <Grid Margin="0,6">
                     <Grid.RowDefinitions>
@@ -19,13 +82,13 @@
                                         RowsCount="11" />
 
                     <TextBox Grid.Row="1"
-                             PlaceholderText="TYPE SOMETHING HERE..."
                              Width="400"
                              MinHeight="52"
                              Margin="20"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Bottom"
                              AcceptsReturn="True"
+                             PlaceholderText="TYPE SOMETHING HERE..."
                              Text="{Binding ElementName=TextBoard, Path=Text, Mode=TwoWay}"
                              TextWrapping="Wrap" />
                 </Grid>
@@ -52,17 +115,17 @@
                 <Grid Margin="0,6">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="20"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        
+
                         <gazeControls:GazeButton Width="200"
                                                  Click="OnFirstGazeButtonClick"
                                                  Content="Gaze Button" />
 
-                        <gazeControls:GazeButton Width="200"
-                                                 Grid.Row="2"
+                        <gazeControls:GazeButton Grid.Row="2"
+                                                 Width="200"
                                                  Click="OnSecondGazeButtonClick"
                                                  Content="Gaze Button" />
                     </Grid>

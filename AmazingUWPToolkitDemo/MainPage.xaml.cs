@@ -1,8 +1,11 @@
 ﻿using AmazingUWPToolkit.ApplicatonView;
+using AmazingUWPToolkit.Controls;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -11,11 +14,19 @@ namespace AmazingUWPToolkitDemo
 {
     public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
+        #region Fields
+
+        private Random random;
+
+        #endregion
+
         #region Contructor
 
         public MainPage()
         {
             InitializeComponent();
+
+            random = new Random();
         }
 
         #endregion
@@ -39,6 +50,52 @@ namespace AmazingUWPToolkitDemo
             await SetApplicationViewHelperAsync();
 
             base.OnNavigatedTo(e);
+        }
+
+        #endregion
+
+        #region StackedBar
+
+        public ObservableCollection<StackedBarItem> StackedBars = new ObservableCollection<StackedBarItem>()
+        {
+            new StackedBarItem(40, Colors.Blue, "Flowers"),
+            new StackedBarItem(20, Colors.Red, "Food"),
+            new StackedBarItem(10, Colors.Gold, "Travel"),
+            new StackedBarItem(10, Colors.LightBlue, "Travel"),
+            new StackedBarItem(10, Colors.Magenta, "Travel"),
+            new StackedBarItem(10, Colors.DarkOrange, "Water")
+        };
+
+        private void OnAddStakedBarItemButtonClick(object sender, RoutedEventArgs e)
+        {
+            var randomStackedBarItemValue = random.Next(1, 100);
+            var randomStackedBarItemColor = Color.FromArgb(255, (byte)random.Next(50, 255), (byte)random.Next(50, 255), (byte)random.Next(50, 255));
+            var randomStackedBarItem = new StackedBarItem(randomStackedBarItemValue, randomStackedBarItemColor);
+
+            StackedBars.Add(randomStackedBarItem);
+        }
+
+        private void OnRemoveStakedBarItemButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (StackedBars.Count == 0)
+                return;
+
+            var randomStackedBarItemIndex = random.Next(0, StackedBars.Count);
+
+            StackedBars.RemoveAt(randomStackedBarItemIndex);
+        }
+
+        private void OnResetStakedBarItemButtonClick(object sender, RoutedEventArgs e)
+        {
+            StackedBars = new ObservableCollection<StackedBarItem>()
+            {
+                new StackedBarItem(40, Colors.Blue, "Flowers"),
+                new StackedBarItem(20, Colors.Red, "Food"),
+                new StackedBarItem(10, Colors.Gold, "Travel"),
+                new StackedBarItem(10, Colors.LightBlue, "Travel"),
+                new StackedBarItem(10, Colors.Magenta, "Travel"),
+                new StackedBarItem(10, Colors.DarkOrange, "Water")
+            };
         }
 
         #endregion

@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:AmazingUWPToolkit.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/StackedBar/StackedBar.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <!--  PullToRefresh  -->
     <Style TargetType="controls:PullToRefreshListView">
         <Setter Property="IsTabStop" Value="False" />
