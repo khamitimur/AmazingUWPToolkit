@@ -1,5 +1,4 @@
-﻿using AmazingUWPToolkit.Collections;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +27,7 @@ namespace AmazingUWPToolkit.Controls
 
         #endregion
 
-        #region Delepndency Properties
+        #region Dependency Properties
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
@@ -64,7 +63,7 @@ namespace AmazingUWPToolkit.Controls
 
             charItemsRandom = new Random();
 
-            TextBoardItems = new ExtendedObservableCollection<ITextBoardItem>();
+            TextBoardItems = new ObservableCollection<ITextBoardItem>();
 
             DataContext = this;
 
@@ -85,7 +84,7 @@ namespace AmazingUWPToolkit.Controls
         }
 
         [NotNull]
-        public ExtendedObservableCollection<ITextBoardItem> TextBoardItems { get; }
+        public ObservableCollection<ITextBoardItem> TextBoardItems { get; }
 
         [CanBeNull]
         public string RandomCharsSet
@@ -193,7 +192,10 @@ namespace AmazingUWPToolkit.Controls
                 textBoardItemsToAdd.Add(GetRandomTextBoardItem());
             }
 
-            TextBoardItems.AddRange(textBoardItemsToAdd);
+            foreach (var textBoardItemToAdd in textBoardItemsToAdd)
+            {
+                TextBoardItems.Add(textBoardItemToAdd);
+            }
 
             IsInitialized = true;
 
