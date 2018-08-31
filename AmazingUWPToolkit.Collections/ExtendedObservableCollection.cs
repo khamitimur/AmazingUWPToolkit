@@ -51,7 +51,7 @@ namespace AmazingUWPToolkit.Collections
 
             supressNotification = false;
 
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace AmazingUWPToolkit.Collections
 
             supressNotification = false;
 
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
         }
 
         #endregion
