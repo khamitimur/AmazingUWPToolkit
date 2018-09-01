@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -42,7 +41,6 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        [CanBeNull]
         public ObservableCollection<StackedBarItem> Items
         {
             get => (ObservableCollection<StackedBarItem>)GetValue(ItemsProperty);

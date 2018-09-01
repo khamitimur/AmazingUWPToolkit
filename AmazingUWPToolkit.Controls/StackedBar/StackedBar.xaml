@@ -14,7 +14,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:StackedBar">
-                    <Grid x:Name="RootPanel">
+                    <Grid x:Name="RootPanel"
+                          Tag="{TemplateBinding Orientation}">
                         <Border Background="{TemplateBinding Background}"
                                 CornerRadius="{TemplateBinding CornerRadius}">
                             <ItemsControl ItemTemplate="{StaticResource StackedBarItemTemplate}"
@@ -24,7 +25,7 @@
                                         <Grid x:Name="ItemsPanelGrid">
                                             <interactivity:Interaction.Behaviors>
                                                 <behaviors:StackedBarItemsGridBehavior Items="{Binding ElementName=RootPanel, Path=DataContext.Items, RelativeSource={RelativeSource TemplatedParent}}"
-                                                                                       Orientation="Vertical" />
+                                                                                       Orientation="{Binding ElementName=RootPanel, Path=DataContext.Orientation, RelativeSource={RelativeSource TemplatedParent}}" />
                                             </interactivity:Interaction.Behaviors>
                                         </Grid>
                                     </ItemsPanelTemplate>

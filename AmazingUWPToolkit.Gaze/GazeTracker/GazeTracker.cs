@@ -133,7 +133,7 @@ namespace AmazingUWPToolkit.Gaze
             {
                 System.Diagnostics.Debug.WriteLine("Your device needs to calibrate. Please wait for it to finish.");
 
-                await gazeDevice.RequestCalibrationAsync();
+                //await gazeDevice.RequestCalibrationAsync();
             }
             else if (gazeDevice.ConfigurationState == GazeDeviceConfigurationStatePreview.Configuring)
             {

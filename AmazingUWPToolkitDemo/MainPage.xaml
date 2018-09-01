@@ -26,28 +26,37 @@
                                    FontWeight="Medium"
                                    Text="STACKED BAR" />
 
-                        <controls:StackedBar Grid.Row="2"
-                                             Height="8"
-                                             CornerRadius="4"
-                                             Items="{x:Bind StackedBars, Mode=OneWay}"
-                                             Orientation="Horizontal">
-                            <controls:StackedBar.Background>
-                                <SolidColorBrush Opacity="0.1"
-                                                 Color="Black" />
-                            </controls:StackedBar.Background>
-                        </controls:StackedBar>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <!--<controls:StackedBar Grid.Row="2"
-                                             Height="200"
-                                             Width="40"
-                                             CornerRadius="4"
-                                             Items="{x:Bind StackedBars, Mode=OneWay}"
-                                             Orientation="Vertical">
-                            <controls:StackedBar.Background>
-                                <SolidColorBrush Opacity="0.1"
-                                                 Color="Black" />
-                            </controls:StackedBar.Background>
-                        </controls:StackedBar>-->
+                            <controls:StackedBar Grid.Row="4"
+                                                 Width="40"
+                                                 Height="120"
+                                                 Items="{x:Bind StackedBars, Mode=OneWay}"
+                                                 Orientation="Vertical">
+                                <controls:StackedBar.Background>
+                                    <SolidColorBrush Opacity="0.1"
+                                                     Color="Black" />
+                                </controls:StackedBar.Background>
+                            </controls:StackedBar>
+
+                            <controls:StackedBar Width="300"
+                                                 Height="8"
+                                                 Grid.Column="2"
+                                                 VerticalAlignment="Bottom"
+                                                 CornerRadius="4"
+                                                 Items="{x:Bind StackedBars, Mode=OneWay}"
+                                                 Orientation="Horizontal">
+                                <controls:StackedBar.Background>
+                                    <SolidColorBrush Opacity="0.1"
+                                                     Color="Black" />
+                                </controls:StackedBar.Background>
+                            </controls:StackedBar>
+                        </Grid>
 
                         <StackPanel Grid.Row="4"
                                     Orientation="Horizontal">
@@ -79,7 +88,8 @@
                     <controls:TextBoard x:Name="TextBoard"
                                         ColumnsCount="11"
                                         RandomCharsSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-                                        RowsCount="11" />
+                                        RowsCount="11"
+                                        Text="THIS IS TEST" />
 
                     <TextBox Grid.Row="1"
                              Width="400"

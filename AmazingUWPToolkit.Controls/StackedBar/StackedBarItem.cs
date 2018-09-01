@@ -17,7 +17,7 @@ namespace AmazingUWPToolkit.Controls
         /// <param name="label">Label.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is less than zero.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="background"/> is null.</exception>
-        public StackedBarItem(double value, [NotNull] Brush background, [CanBeNull] string label = null)
+        public StackedBarItem(double value, [NotNull] Brush background, string label = null)
         {
             if (value < 0) throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(value)} can't be less than zero.");
 
@@ -33,7 +33,7 @@ namespace AmazingUWPToolkit.Controls
         /// <param name="background">Background color.</param>
         /// <param name="label">Label.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is less than zero.</exception>
-        public StackedBarItem(double value, Color background, [CanBeNull] string label = null)
+        public StackedBarItem(double value, Color background, string label = null)
             : this(value, new SolidColorBrush(background), label)
         {
 
@@ -48,7 +48,6 @@ namespace AmazingUWPToolkit.Controls
         [NotNull]
         public Brush Background { get; }
 
-        [CanBeNull]
         public string Label { get; }
 
         #endregion

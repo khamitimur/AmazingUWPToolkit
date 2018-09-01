@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Microsoft.Xaml.Interactivity;
+﻿using Microsoft.Xaml.Interactivity;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -18,18 +17,27 @@ namespace AmazingUWPToolkit.Controls.Behaviors
             typeof(StackedBarItemsGridBehavior),
             new PropertyMetadata(null, OnItemsPropertyChanged));
 
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
+            nameof(Orientation),
+            typeof(StackedBarOrientation),
+            typeof(StackedBarItemsGridBehavior),
+            new PropertyMetadata(default(Orientation)));
+
         #endregion
 
         #region Properties
 
-        [CanBeNull]
         public ObservableCollection<StackedBarItem> Items
         {
             get => (ObservableCollection<StackedBarItem>)GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
 
-        public StackedBarOrientation Orientation { get; set; }
+        public StackedBarOrientation Orientation
+        {
+            get => (StackedBarOrientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
+        }
 
         #endregion
 
@@ -37,15 +45,24 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         protected override void OnAttached()
         {
-            AssociatedObject.Loaded += AOnLoaded;
+            if (AssociatedObject != null)
+            {
+                AssociatedObject.Loaded += OnLoaded;
+            }
+
             TryToSetGrid();
 
             base.OnAttached();
         }
 
-        private void AOnLoaded(object sender, RoutedEventArgs e)
+        protected override void OnDetaching()
         {
-            TryToSetChildren();
+            if (AssociatedObject != null)
+            {
+                AssociatedObject.Loaded -= OnLoaded;
+            }
+
+            base.OnDetaching();
         }
 
         #endregion
@@ -73,6 +90,11 @@ namespace AmazingUWPToolkit.Controls.Behaviors
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             TryToSetGrid();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            TryToSetChildren();
         }
 
         private void TryToSetGrid()
