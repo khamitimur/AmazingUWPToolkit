@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -23,7 +24,9 @@ namespace AmazingUWPToolkit.Controls
 
         private Panel rootPanel;
 
-        private bool isAnimationInProgress;
+        AnimationSet currentTextBlockAnimation;
+        AnimationSet nextTextBlockAnimation;
+
         private Random animationDelayRandom;
 
         #endregion
@@ -54,6 +57,14 @@ namespace AmazingUWPToolkit.Controls
 
             SizeChanged += OnSizeChanged;
         }
+
+        #endregion
+
+        #region Properties
+
+        private bool AreAnimationsCompleted =>
+            (currentTextBlockAnimation == null || currentTextBlockAnimation.State == AnimationSetState.Completed) &&
+            (nextTextBlockAnimation == null || nextTextBlockAnimation.State != AnimationSetState.Completed);
 
         #endregion
 
@@ -141,7 +152,7 @@ namespace AmazingUWPToolkit.Controls
 
         private async Task SetOffset()
         {
-            if (isAnimationInProgress)
+            if (!AreAnimationsCompleted)
                 return;
 
             if (rootPanel?.Children?.Count > 1 &&
@@ -191,22 +202,18 @@ namespace AmazingUWPToolkit.Controls
                 return;
             }
 
-            isAnimationInProgress = true;
-
             SetTextBlockProperties(nextTextBlock);
 
             var animationDelay = ANIMATION_DELAYS_ARRAY[animationDelayRandom.Next(0, ANIMATION_DELAYS_ARRAY.Length)];
 
-            var currentTextBlockAnimation = currentTextBlock.Offset(offsetY: -(float)ActualHeight, duration: ANIMATION_DURATION, delay: animationDelay);
-            var nextTextBlockAnimation = nextTextBlock.Offset(offsetY: 0, duration: ANIMATION_DURATION, delay: animationDelay);
+            currentTextBlockAnimation = currentTextBlock.Offset(offsetY: -(float)ActualHeight, duration: ANIMATION_DURATION, delay: animationDelay, easingType: EasingType.Quintic);
+            nextTextBlockAnimation = nextTextBlock.Offset(offsetY: 0, duration: ANIMATION_DURATION, delay: animationDelay, easingType: EasingType.Quintic);
             nextTextBlockAnimation.Completed += (sender, e) =>
             {
                 rootPanel.Children.Remove(currentTextBlock);
                 rootPanel.Children.Insert(1, currentTextBlock);
 
                 currentTextBlock.Offset(offsetY: (float)ActualHeight, duration: 0).Start();
-
-                isAnimationInProgress = false;
             };
 
             currentTextBlockAnimation.Start();
