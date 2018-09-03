@@ -165,7 +165,7 @@
                 <ControlTemplate TargetType="controls:TextBoard">
                     <GridView x:Name="GridView"
                               Style="{StaticResource SimpleGridViewStyle}"
-                              ItemsSource="{Binding TextBoardItems, RelativeSource={RelativeSource TemplatedParent}}">
+                              ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
                         <GridView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TextBoardItemControl FontSize="40"

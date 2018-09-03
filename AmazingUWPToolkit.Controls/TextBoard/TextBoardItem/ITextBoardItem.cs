@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 
 namespace AmazingUWPToolkit.Controls
 {
@@ -7,7 +6,6 @@ namespace AmazingUWPToolkit.Controls
     {
         #region Properties
 
-        [CanBeNull]
         ITextBoardItem PreviousState { get; }
 
         char Char { get; }
@@ -24,7 +22,7 @@ namespace AmazingUWPToolkit.Controls
 
         #region Methods
 
-        void Update([NotNull] ITextBoardItem textBoardItem);
+        void Update(ITextBoardItem textBoardItem);
 
         #endregion
     }

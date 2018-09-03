@@ -35,7 +35,6 @@ namespace AmazingUWPToolkit.Controls
 
         public event EventHandler<EventArgs> Updated;
 
-        [CanBeNull]
         public ITextBoardItem PreviousState { get; private set; }
 
         public char Char { get; private set; }

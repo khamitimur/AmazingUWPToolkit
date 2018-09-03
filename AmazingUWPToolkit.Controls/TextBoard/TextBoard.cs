@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace AmazingUWPToolkit.Controls
 {
-    public sealed class TextBoard : Control, INotifyPropertyChanged
+    public sealed class TextBoard : Control, ITextBoard, INotifyPropertyChanged
     {
         #region Fields
 
@@ -63,7 +63,7 @@ namespace AmazingUWPToolkit.Controls
 
             charItemsRandom = new Random();
 
-            TextBoardItems = new ObservableCollection<ITextBoardItem>();
+            Items = new ObservableCollection<ITextBoardItem>();
 
             DataContext = this;
 
@@ -76,17 +76,41 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        [CanBeNull]
+        internal bool IsInitialized { get; set; }
+
+        internal double ItemWidth { get; set; }
+
+        internal double ItemHeight { get; set; }
+
+        internal double TextBoardItemControlMaxFontSize { get; set; }
+
+        internal double WrapPanelMaxWidth { get; set; }
+
+        internal double WrapPanelMaxHeight { get; set; }
+
+        internal double AvailableWidth => ActualWidth - (Padding.Left + Padding.Right);
+
+        internal double AvailableHeight => ActualHeight - (Padding.Top + Padding.Bottom);
+
+        #endregion
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Implementation of ITextBoard
+
+        [NotNull]
+        public ObservableCollection<ITextBoardItem> Items { get; }
+
         public string Text
         {
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
 
-        [NotNull]
-        public ObservableCollection<ITextBoardItem> TextBoardItems { get; }
-
-        [CanBeNull]
         public string RandomCharsSet
         {
             get => (string)GetValue(RandomCharsSetProperty);
@@ -104,28 +128,6 @@ namespace AmazingUWPToolkit.Controls
             get => (int)GetValue(RowsCountProperty);
             set => SetValue(RowsCountProperty, value);
         }
-
-        public bool IsInitialized { get; private set; }
-
-        public double ItemWidth { get; private set; }
-
-        public double ItemHeight { get; private set; }
-
-        public double TextBoardItemControlMaxFontSize { get; private set; }
-
-        public double WrapPanelMaxWidth { get; private set; }
-
-        public double WrapPanelMaxHeight { get; private set; }
-
-        public double AvailableWidth => ActualWidth - (Padding.Left + Padding.Right);
-
-        public double AvailableHeight => ActualHeight - (Padding.Top + Padding.Bottom);
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -194,7 +196,7 @@ namespace AmazingUWPToolkit.Controls
 
             foreach (var textBoardItemToAdd in textBoardItemsToAdd)
             {
-                TextBoardItems.Add(textBoardItemToAdd);
+                Items.Add(textBoardItemToAdd);
             }
 
             IsInitialized = true;
@@ -219,9 +221,9 @@ namespace AmazingUWPToolkit.Controls
         {
             var notRandomCTextBoardItemsIndexes = new List<int>();
 
-            foreach (var notRandomTextBoardItem in TextBoardItems.Where(textBoardItem => !textBoardItem.IsRandom))
+            foreach (var notRandomTextBoardItem in Items.Where(textBoardItem => !textBoardItem.IsRandom))
             {
-                notRandomCTextBoardItemsIndexes.Add(TextBoardItems.IndexOf(notRandomTextBoardItem));
+                notRandomCTextBoardItemsIndexes.Add(Items.IndexOf(notRandomTextBoardItem));
             }
 
             return notRandomCTextBoardItemsIndexes;
@@ -347,18 +349,18 @@ namespace AmazingUWPToolkit.Controls
                     notRandomTextBoardItemsIndexes.Remove(index);
                 }
 
-                TextBoardItems[index].Update(textBoardItem);
+                Items[index].Update(textBoardItem);
             }
 
             foreach (var notRandomCharsToResetIndex in notRandomTextBoardItemsIndexes)
             {
-                TextBoardItems[notRandomCharsToResetIndex].Update(GetRandomTextBoardItem());
+                Items[notRandomCharsToResetIndex].Update(GetRandomTextBoardItem());
             }
         }
 
         private void Reset()
         {
-            foreach (var notTextBoardItem in TextBoardItems.Where(textBoardItem => !textBoardItem.IsRandom))
+            foreach (var notTextBoardItem in Items.Where(textBoardItem => !textBoardItem.IsRandom))
             {
                 notTextBoardItem.Update(GetRandomTextBoardItem());
             }

@@ -59,7 +59,6 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        [CanBeNull]
         public ITextBoardItem TextBoardItem
         {
             get => (ITextBoardItem)GetValue(TextBoardItemProperty);
