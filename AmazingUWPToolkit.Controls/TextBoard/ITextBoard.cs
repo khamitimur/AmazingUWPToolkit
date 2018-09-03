@@ -6,7 +6,7 @@ namespace AmazingUWPToolkit.Controls
     {
         #region Properties
 
-        ObservableCollection<ITextBoardItem> Items { get; }
+        ObservableCollection<ITextBoardItemModel> Items { get; }
 
         string Text { get; set; }
 

@@ -63,7 +63,7 @@ namespace AmazingUWPToolkit.Controls
 
             charItemsRandom = new Random();
 
-            Items = new ObservableCollection<ITextBoardItem>();
+            Items = new ObservableCollection<ITextBoardItemModel>();
 
             DataContext = this;
 
@@ -103,7 +103,7 @@ namespace AmazingUWPToolkit.Controls
         #region Implementation of ITextBoard
 
         [NotNull]
-        public ObservableCollection<ITextBoardItem> Items { get; }
+        public ObservableCollection<ITextBoardItemModel> Items { get; }
 
         public string Text
         {
@@ -187,16 +187,16 @@ namespace AmazingUWPToolkit.Controls
                 return;
             }
 
-            var textBoardItemsToAdd = new List<ITextBoardItem>();
+            var textBoardItemModelsToAdd = new List<ITextBoardItemModel>();
 
             for (int i = 0; i < ColumnsCount * RowsCount; i++)
             {
-                textBoardItemsToAdd.Add(GetRandomTextBoardItem());
+                textBoardItemModelsToAdd.Add(GetRandomTextBoardItemModel());
             }
 
-            foreach (var textBoardItemToAdd in textBoardItemsToAdd)
+            foreach (var textBoardItemModelToAdd in textBoardItemModelsToAdd)
             {
-                Items.Add(textBoardItemToAdd);
+                Items.Add(textBoardItemModelToAdd);
             }
 
             IsInitialized = true;
@@ -210,18 +210,18 @@ namespace AmazingUWPToolkit.Controls
             }
         }
 
-        private ITextBoardItem GetRandomTextBoardItem()
+        private ITextBoardItemModel GetRandomTextBoardItemModel()
         {
             var @char = RandomCharsSet[charItemsRandom.Next(0, RandomCharsSet.Length - 1)];
 
             return new TextBoardItem(@char, true);
         }
 
-        private List<int> GetNotRandomTextBoardItemsIndexes()
+        private List<int> GetNotRandomTextBoardItemModelsIndexes()
         {
             var notRandomCTextBoardItemsIndexes = new List<int>();
 
-            foreach (var notRandomTextBoardItem in Items.Where(textBoardItem => !textBoardItem.IsRandom))
+            foreach (var notRandomTextBoardItem in Items.Where(textBoardItemModel => !textBoardItemModel.IsRandom))
             {
                 notRandomCTextBoardItemsIndexes.Add(Items.IndexOf(notRandomTextBoardItem));
             }
@@ -272,7 +272,7 @@ namespace AmazingUWPToolkit.Controls
             }
             else
             {
-                var textBoardItemsDictionary = new Dictionary<int, ITextBoardItem>();
+                var textBoardItemModelsDictionary = new Dictionary<int, ITextBoardItemModel>();
 
                 var index = 0;
 
@@ -312,7 +312,7 @@ namespace AmazingUWPToolkit.Controls
 
                         for (int i = 0; i < textWord.Length; i++)
                         {
-                            textBoardItemsDictionary.Add(index + i, new TextBoardItem(textWord[i]));
+                            textBoardItemModelsDictionary.Add(index + i, new TextBoardItem(textWord[i]));
                         }
 
                         index += textWord.Length;
@@ -321,7 +321,7 @@ namespace AmazingUWPToolkit.Controls
                     }
                 }
 
-                Update(new ReadOnlyDictionary<int, ITextBoardItem>(textBoardItemsDictionary));
+                Update(new ReadOnlyDictionary<int, ITextBoardItemModel>(textBoardItemModelsDictionary));
             }
         }
 
@@ -335,34 +335,34 @@ namespace AmazingUWPToolkit.Controls
             return currentIndex - (currentIndex % ColumnsCount) + ColumnsCount;
         }
 
-        private void Update([NotNull, ItemNotNull] ReadOnlyDictionary<int, ITextBoardItem> newTextBoardItemsDictionary)
+        private void Update([NotNull, ItemNotNull] ReadOnlyDictionary<int, ITextBoardItemModel> textBoardItemModelsDictionary)
         {
-            var notRandomTextBoardItemsIndexes = GetNotRandomTextBoardItemsIndexes();
+            var notRandomTextBoardItemModelsIndexes = GetNotRandomTextBoardItemModelsIndexes();
 
-            foreach (var newTextBoardItem in newTextBoardItemsDictionary)
+            foreach (var textBoardItemModel in textBoardItemModelsDictionary)
             {
-                var index = newTextBoardItem.Key;
-                var textBoardItem = newTextBoardItem.Value;
+                var index = textBoardItemModel.Key;
+                var textBoardItem = textBoardItemModel.Value;
 
-                if (notRandomTextBoardItemsIndexes.Contains(index))
+                if (notRandomTextBoardItemModelsIndexes.Contains(index))
                 {
-                    notRandomTextBoardItemsIndexes.Remove(index);
+                    notRandomTextBoardItemModelsIndexes.Remove(index);
                 }
 
                 Items[index].Update(textBoardItem);
             }
 
-            foreach (var notRandomCharsToResetIndex in notRandomTextBoardItemsIndexes)
+            foreach (var notRandomTextBoardItemModelIndex in notRandomTextBoardItemModelsIndexes)
             {
-                Items[notRandomCharsToResetIndex].Update(GetRandomTextBoardItem());
+                Items[notRandomTextBoardItemModelIndex].Update(GetRandomTextBoardItemModel());
             }
         }
 
         private void Reset()
         {
-            foreach (var notTextBoardItem in Items.Where(textBoardItem => !textBoardItem.IsRandom))
+            foreach (var notRandomTextBoardItemModel in Items.Where(textBoardItemModel => !textBoardItemModel.IsRandom))
             {
-                notTextBoardItem.Update(GetRandomTextBoardItem());
+                notRandomTextBoardItemModel.Update(GetRandomTextBoardItemModel());
             }
         }
 

@@ -128,7 +128,7 @@
     <Compile Include="TextBoard\ITextBoard.cs" />
     <Compile Include="TextBoard\TextBoard.cs" />
     <Compile Include="TextBoard\TextBoardItemControl.cs" />
-    <Compile Include="TextBoard\TextBoardItem\ITextBoardItem.cs" />
+    <Compile Include="TextBoard\TextBoardItem\ITextBoardItemModel.cs" />
     <Compile Include="TextBoard\TextBoardItem\TextBoardItem.cs" />
   </ItemGroup>
   <ItemGroup>

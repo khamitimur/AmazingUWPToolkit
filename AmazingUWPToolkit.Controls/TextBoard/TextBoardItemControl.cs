@@ -30,9 +30,9 @@ namespace AmazingUWPToolkit.Controls
 
         #region Dependency Properties
 
-        public static readonly DependencyProperty TextBoardItemProperty = DependencyProperty.Register(
-            nameof(TextBoardItem),
-            typeof(ITextBoardItem),
+        public static readonly DependencyProperty TextBoardItemModelProperty = DependencyProperty.Register(
+            nameof(TextBoardItemModel),
+            typeof(ITextBoardItemModel),
             typeof(TextBoardItemControl),
             new PropertyMetadata(null, OnTextBoardItemPropertyChanged));
 
@@ -59,10 +59,10 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        public ITextBoardItem TextBoardItem
+        public ITextBoardItemModel TextBoardItemModel
         {
-            get => (ITextBoardItem)GetValue(TextBoardItemProperty);
-            set => SetValue(TextBoardItemProperty, value);
+            get => (ITextBoardItemModel)GetValue(TextBoardItemModelProperty);
+            set => SetValue(TextBoardItemModelProperty, value);
         }
 
         public double RandomTextBoardItemOpacity
@@ -155,12 +155,12 @@ namespace AmazingUWPToolkit.Controls
         {
             if (rootPanel == null ||
                 rootPanel.Children?.Count < 2 ||
-                TextBoardItem == null)
+                TextBoardItemModel == null)
             {
                 return;
             }
 
-            if (TextBoardItem.PreviousState == null)
+            if (TextBoardItemModel.PreviousState == null)
             {
                 UpdateWithoutAnimation();
             }
@@ -176,8 +176,8 @@ namespace AmazingUWPToolkit.Controls
             if (currentTextBlock == null)
                 return;
 
-            currentTextBlock.Text = TextBoardItem.ToString();
-            currentTextBlock.Opacity = TextBoardItem.IsRandom
+            currentTextBlock.Text = TextBoardItemModel.ToString();
+            currentTextBlock.Opacity = TextBoardItemModel.IsRandom
                 ? 0.05
                 : 1;
         }
@@ -196,8 +196,8 @@ namespace AmazingUWPToolkit.Controls
 
             isAnimationInProgress = true;
 
-            nextTextBlock.Text = TextBoardItem.ToString();
-            nextTextBlock.Opacity = TextBoardItem.IsRandom
+            nextTextBlock.Text = TextBoardItemModel.ToString();
+            nextTextBlock.Opacity = TextBoardItemModel.IsRandom
                 ? 0.05
                 : 1;
 

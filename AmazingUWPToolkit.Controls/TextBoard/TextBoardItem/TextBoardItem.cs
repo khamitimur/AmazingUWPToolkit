@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace AmazingUWPToolkit.Controls
 {
-    public class TextBoardItem : ITextBoardItem, INotifyPropertyChanged
+    public class TextBoardItem : ITextBoardItemModel, INotifyPropertyChanged
     {
         #region Constructor
 
@@ -35,24 +35,24 @@ namespace AmazingUWPToolkit.Controls
 
         public event EventHandler<EventArgs> Updated;
 
-        public ITextBoardItem PreviousState { get; private set; }
+        public ITextBoardItemModel PreviousState { get; private set; }
 
         public char Char { get; private set; }
 
         public bool IsRandom { get; private set; }
 
-        public void Update([NotNull] ITextBoardItem textBoardItem)
+        public void Update([NotNull] ITextBoardItemModel textBoardItemModel)
         {
-            if (Char == textBoardItem.Char &&
-                IsRandom == textBoardItem.IsRandom)
+            if (Char == textBoardItemModel.Char &&
+                IsRandom == textBoardItemModel.IsRandom)
             {
                 return;
             }
 
             PreviousState = new TextBoardItem(Char, IsRandom);
 
-            Char = textBoardItem.Char;
-            IsRandom = textBoardItem.IsRandom;
+            Char = textBoardItemModel.Char;
+            IsRandom = textBoardItemModel.IsRandom;
 
             Updated?.Invoke(this, EventArgs.Empty);
         }

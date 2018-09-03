@@ -169,7 +169,7 @@
                         <GridView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TextBoardItemControl FontSize="40"
-                                                               TextBoardItem="{Binding}" />
+                                                               TextBoardItemModel="{Binding}" />
                             </DataTemplate>
                         </GridView.ItemTemplate>
 

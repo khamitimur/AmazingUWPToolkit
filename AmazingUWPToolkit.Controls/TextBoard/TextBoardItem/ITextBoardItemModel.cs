@@ -2,11 +2,11 @@
 
 namespace AmazingUWPToolkit.Controls
 {
-    public interface ITextBoardItem
+    public interface ITextBoardItemModel
     {
         #region Properties
 
-        ITextBoardItem PreviousState { get; }
+        ITextBoardItemModel PreviousState { get; }
 
         char Char { get; }
 
@@ -22,7 +22,7 @@ namespace AmazingUWPToolkit.Controls
 
         #region Methods
 
-        void Update(ITextBoardItem textBoardItem);
+        void Update(ITextBoardItemModel textBoardItemModel);
 
         #endregion
     }
