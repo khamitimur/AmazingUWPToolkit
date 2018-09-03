@@ -34,10 +34,10 @@
                             </Grid.ColumnDefinitions>
 
                             <controls:StackedBars Grid.Row="4"
-                                                 Width="40"
-                                                 Height="120"
-                                                 Items="{x:Bind StackedBars, Mode=OneWay}"
-                                                 Orientation="Vertical">
+                                                  Width="40"
+                                                  Height="120"
+                                                  Items="{x:Bind StackedBars, Mode=OneWay}"
+                                                  Orientation="Vertical">
                                 <controls:StackedBars.Background>
                                     <SolidColorBrush Opacity="0.1"
                                                      Color="Black" />
@@ -45,12 +45,12 @@
                             </controls:StackedBars>
 
                             <controls:StackedBars Grid.Column="2"
-                                                 Width="300"
-                                                 Height="8"
-                                                 VerticalAlignment="Bottom"
-                                                 CornerRadius="4"
-                                                 Items="{x:Bind StackedBars, Mode=OneWay}"
-                                                 Orientation="Horizontal">
+                                                  Width="300"
+                                                  Height="8"
+                                                  VerticalAlignment="Bottom"
+                                                  CornerRadius="4"
+                                                  Items="{x:Bind StackedBars, Mode=OneWay}"
+                                                  Orientation="Horizontal">
                                 <controls:StackedBars.Background>
                                     <SolidColorBrush Opacity="0.1"
                                                      Color="Black" />

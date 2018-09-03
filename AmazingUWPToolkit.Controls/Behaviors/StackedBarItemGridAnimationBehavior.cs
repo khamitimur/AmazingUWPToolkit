@@ -17,8 +17,8 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         #region Dependency Properties
 
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
-            nameof(Orientation),
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(
+            nameof(Model),
             typeof(StackedBarOrientation),
             typeof(StackedBarItemGridAnimationBehavior),
             new PropertyMetadata(StackedBarOrientation.Horizontal));
@@ -27,10 +27,10 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         #region Properties
 
-        public StackedBarOrientation Orientation
+        public StackedBarsModel Model
         {
-            get => (StackedBarOrientation)GetValue(OrientationProperty);
-            set => SetValue(OrientationProperty, value);
+            get => (StackedBarsModel)GetValue(ModelProperty);
+            set => SetValue(ModelProperty, value);
         }
 
         #endregion
@@ -77,8 +77,8 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height)
             };
 
-            if ((Orientation == StackedBarOrientation.Horizontal && e.PreviousSize.Width != 0) ||
-                (Orientation == StackedBarOrientation.Vertical && e.PreviousSize.Height != 0))
+            if ((Model.Orientation == StackedBarOrientation.Horizontal && e.PreviousSize.Width != 0) ||
+                (Model.Orientation == StackedBarOrientation.Vertical && e.PreviousSize.Height != 0))
             {
                 return;
             }
@@ -98,15 +98,15 @@ namespace AmazingUWPToolkit.Controls.Behaviors
             if (!(AssociatedObject.Children[0] is FrameworkElement child))
                 return;
 
-            if (Orientation == StackedBarOrientation.Horizontal)
+            if (Model.Orientation == StackedBarOrientation.Horizontal)
             {
                 await child.Offset(offsetX: -(float)AssociatedObject.ActualWidth, duration: 0).StartAsync();
-                await child.Offset(offsetX: 0, duration: 400, easingType: EasingType.Quintic).StartAsync();
+                await child.Offset(offsetX: 0, duration: (float)Model.AnimationDuration, easingType: Model.AnimationEasingType).StartAsync();
             }
             else
             {
                 await child.Offset(offsetY: (float)AssociatedObject.ActualHeight, duration: 0).StartAsync();
-                await child.Offset(offsetY: 0, duration: 400, easingType: EasingType.Quintic).StartAsync();
+                await child.Offset(offsetY: 0, duration: (float)Model.AnimationDuration, easingType: Model.AnimationEasingType).StartAsync();
             }
         }
 

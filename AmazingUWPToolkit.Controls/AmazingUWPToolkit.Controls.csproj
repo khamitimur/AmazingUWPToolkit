@@ -121,7 +121,7 @@
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshState.cs" />
     <Compile Include="Behaviors\StackedBarItemsGridBehavior.cs" />
-    <Compile Include="StackedBars\StackedBarsItemsModel.cs" />
+    <Compile Include="StackedBars\StackedBarsModel.cs" />
     <Compile Include="StackedBars\StackedBars.cs" />
     <Compile Include="StackedBars\StackedBarItem.cs" />
     <Compile Include="StackedBars\StackedBarOrientation.cs" />

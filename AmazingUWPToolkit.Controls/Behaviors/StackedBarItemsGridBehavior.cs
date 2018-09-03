@@ -12,7 +12,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(
             nameof(Model),
-            typeof(StackedBarsItemsModel),
+            typeof(StackedBarsModel),
             typeof(StackedBarItemsGridBehavior),
             new PropertyMetadata(null, OnModelPropertyChanged));
 
@@ -20,9 +20,9 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         #region Properties
 
-        public StackedBarsItemsModel Model
+        public StackedBarsModel Model
         {
-            get => (StackedBarsItemsModel)GetValue(ModelProperty);
+            get => (StackedBarsModel)GetValue(ModelProperty);
             set => SetValue(ModelProperty, value);
         }
 
@@ -71,13 +71,13 @@ namespace AmazingUWPToolkit.Controls.Behaviors
             {
                 stackedBarItemsGridBehavior.TryToSetGrid();
 
-                if (e.OldValue is StackedBarsItemsModel oldStackedBarsItemsPanelModel &&
+                if (e.OldValue is StackedBarsModel oldStackedBarsItemsPanelModel &&
                     oldStackedBarsItemsPanelModel.Items is INotifyCollectionChanged oldItems)
                 {
                     oldItems.CollectionChanged -= stackedBarItemsGridBehavior.OnItemsCollectionChanged;
                 }
 
-                if (e.NewValue is StackedBarsItemsModel newStackedBarsItemsPanelModel &&
+                if (e.NewValue is StackedBarsModel newStackedBarsItemsPanelModel &&
                     newStackedBarsItemsPanelModel.Items is INotifyCollectionChanged newItems)
                 {
                     newItems.CollectionChanged += stackedBarItemsGridBehavior.OnItemsCollectionChanged;
