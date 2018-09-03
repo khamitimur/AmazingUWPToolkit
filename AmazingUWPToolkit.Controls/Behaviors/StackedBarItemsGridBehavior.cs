@@ -35,7 +35,6 @@ namespace AmazingUWPToolkit.Controls.Behaviors
             Model.ItemsCount != 0 &&
             Model.ItemsCount == AssociatedObject.Children.Count;
 
-
         #endregion
 
         #region Overrides of Behavior
@@ -150,6 +149,18 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                     Grid.SetColumn(child, i);
 
                     AssociatedObject.ColumnDefinitions[i].Width = gridLength;
+
+                    //var actualWidth = 0d;
+
+                    //for (int z = 0; z < i; z++)
+                    //{
+                    //    actualWidth += AssociatedObject.ColumnDefinitions[z].ActualWidth;
+                    //}
+
+                    //var widthDif = AssociatedObject.ActualWidth / actualWidth;
+
+                    //child.Offset(offsetY: (float)AssociatedObject.ActualWidth, duration: 0).Start();
+                    //child.Offset(offsetY: (float)actualWidth, duration: 300).Start();
                 }
                 else
                 {

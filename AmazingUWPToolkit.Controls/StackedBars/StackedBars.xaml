@@ -4,7 +4,13 @@
                     xmlns:controls="using:AmazingUWPToolkit.Controls"
                     xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
     <DataTemplate x:Key="StackedBarItemTemplate">
-        <Grid Background="{Binding Background}" />
+        <Grid>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:StackedBarItemGridAnimationBehavior Orientation="{Binding ElementName=RootPanel, Path=Tag.Orientation}" />
+            </interactivity:Interaction.Behaviors>
+
+            <Rectangle Fill="{Binding Background}" />
+        </Grid>
     </DataTemplate>
 
     <Style TargetType="controls:StackedBars">
@@ -24,7 +30,7 @@
                                     <ItemsPanelTemplate>
                                         <Grid x:Name="ItemsPanelGrid">
                                             <interactivity:Interaction.Behaviors>
-                                                <behaviors:StackedBarItemsGridBehavior Model="{Binding ElementName=RootPanel, Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <behaviors:StackedBarItemsGridBehavior Model="{Binding ElementName=RootPanel, Path=Tag}" />
                                             </interactivity:Interaction.Behaviors>
                                         </Grid>
                                     </ItemsPanelTemplate>

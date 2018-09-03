@@ -75,7 +75,7 @@ namespace AmazingUWPToolkitDemo
 
         private void OnAddStakedBarItemButtonClick(object sender, RoutedEventArgs e)
         {
-            var randomStackedBarItemValue = random.Next(1, 100);
+            var randomStackedBarItemValue = random.Next(10, 50);
             var randomStackedBarItemColor = Color.FromArgb(255, (byte)random.Next(50, 255), (byte)random.Next(50, 255), (byte)random.Next(50, 255));
             var randomStackedBarItem = new StackedBarItem()
             {
@@ -83,7 +83,7 @@ namespace AmazingUWPToolkitDemo
                 Background = new SolidColorBrush(randomStackedBarItemColor)
             };
 
-            StackedBars.Add(randomStackedBarItem);
+            StackedBars.Insert(1, randomStackedBarItem);
         }
 
         private void OnRemoveStakedBarItemButtonClick(object sender, RoutedEventArgs e)
