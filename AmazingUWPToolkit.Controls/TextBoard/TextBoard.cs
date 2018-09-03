@@ -214,7 +214,7 @@ namespace AmazingUWPToolkit.Controls
         {
             var @char = RandomCharsSet[charItemsRandom.Next(0, RandomCharsSet.Length - 1)];
 
-            return new TextBoardItem(@char, true);
+            return new TextBoardItemModel(@char, true);
         }
 
         private List<int> GetNotRandomTextBoardItemModelsIndexes()
@@ -312,7 +312,7 @@ namespace AmazingUWPToolkit.Controls
 
                         for (int i = 0; i < textWord.Length; i++)
                         {
-                            textBoardItemModelsDictionary.Add(index + i, new TextBoardItem(textWord[i]));
+                            textBoardItemModelsDictionary.Add(index + i, new TextBoardItemModel(textWord[i]));
                         }
 
                         index += textWord.Length;

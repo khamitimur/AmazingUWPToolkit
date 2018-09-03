@@ -129,7 +129,7 @@
     <Compile Include="TextBoard\TextBoard.cs" />
     <Compile Include="TextBoard\TextBoardItemControl.cs" />
     <Compile Include="TextBoard\TextBoardItem\ITextBoardItemModel.cs" />
-    <Compile Include="TextBoard\TextBoardItem\TextBoardItem.cs" />
+    <Compile Include="TextBoard\TextBoardItem\TextBoardItemModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AmazingUWPToolkit.Converters">

@@ -4,11 +4,11 @@ using JetBrains.Annotations;
 
 namespace AmazingUWPToolkit.Controls
 {
-    public class TextBoardItem : ITextBoardItemModel, INotifyPropertyChanged
+    public class TextBoardItemModel : ITextBoardItemModel, INotifyPropertyChanged
     {
         #region Constructor
 
-        public TextBoardItem(char @char, bool isRandom = false)
+        public TextBoardItemModel(char @char, bool isRandom = false)
         {
             Char = @char;
             IsRandom = isRandom;
@@ -49,7 +49,7 @@ namespace AmazingUWPToolkit.Controls
                 return;
             }
 
-            PreviousState = new TextBoardItem(Char, IsRandom);
+            PreviousState = new TextBoardItemModel(Char, IsRandom);
 
             Char = textBoardItemModel.Char;
             IsRandom = textBoardItemModel.IsRandom;

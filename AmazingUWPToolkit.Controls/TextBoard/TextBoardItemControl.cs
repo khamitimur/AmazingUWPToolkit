@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -34,7 +33,7 @@ namespace AmazingUWPToolkit.Controls
             nameof(TextBoardItemModel),
             typeof(ITextBoardItemModel),
             typeof(TextBoardItemControl),
-            new PropertyMetadata(null, OnTextBoardItemPropertyChanged));
+            new PropertyMetadata(null, OnTextBoardItemModelPropertyChanged));
 
         public static readonly DependencyProperty RandomTextBoardItemOpacityProperty = DependencyProperty.Register(
             nameof(RandomTextBoardItemOpacity),
@@ -91,18 +90,18 @@ namespace AmazingUWPToolkit.Controls
 
         #region Private Methods
 
-        private static void OnTextBoardItemPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        private static void OnTextBoardItemModelPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             if (dependencyObject is TextBoardItemControl textBoardItemControl)
             {
-                if (e.OldValue is TextBoardItem oldTextBoardItem)
+                if (e.OldValue is ITextBoardItemModel oldTextBoardItemModel)
                 {
-                    oldTextBoardItem.Updated -= textBoardItemControl.OnTextBoardItemUpdated;
+                    oldTextBoardItemModel.Updated -= textBoardItemControl.OnTextBoardItemUpdated;
                 }
 
-                if (e.NewValue is TextBoardItem newTextBoardItem)
+                if (e.NewValue is ITextBoardItemModel newTextBoardItemModel)
                 {
-                    newTextBoardItem.Updated += textBoardItemControl.OnTextBoardItemUpdated;
+                    newTextBoardItemModel.Updated += textBoardItemControl.OnTextBoardItemUpdated;
                 }
 
                 textBoardItemControl.Update();
