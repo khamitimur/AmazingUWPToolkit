@@ -55,15 +55,15 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         private static void OnTextBoardModelPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoardItemBehavior)?.TryToSetTextProperties();
+            (dependencyObject as TextBoardItemBehavior)?.SetTextProperties();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            TryToSetTextProperties();
+            SetTextProperties();
         }
 
-        private void TryToSetTextProperties()
+        private void SetTextProperties()
         {
             if (AssociatedObject == null || TextBoardModel == null)
                 return;

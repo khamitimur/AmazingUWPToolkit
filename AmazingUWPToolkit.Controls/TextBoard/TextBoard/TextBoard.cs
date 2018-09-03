@@ -36,7 +36,10 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        internal bool IsInitialized { get; set; }
+        internal bool AreMainPropertiesSet =>
+            !string.IsNullOrWhiteSpace(RandomCharsSet) &&
+            ColumnsCount > 0 &&
+            RowsCount > 0;
 
         internal double TextBoardItemControlMaxFontSize { get; set; }
 
@@ -63,7 +66,7 @@ namespace AmazingUWPToolkit.Controls
 
         protected override void OnApplyTemplate()
         {
-            TryToSetText();
+            SetText();
 
             base.OnApplyTemplate();
         }
@@ -74,17 +77,13 @@ namespace AmazingUWPToolkit.Controls
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            TryToSetModel();
+            SetModel();
         }
 
-        private void TryToInitialize()
+        private void Initialize()
         {
-            if (string.IsNullOrWhiteSpace(RandomCharsSet) ||
-                ColumnsCount == 0 ||
-                RowsCount == 0)
-            {
+            if (!AreMainPropertiesSet)
                 return;
-            }
 
             var textBoardItemModelsToAdd = new List<ITextBoardItemModel>();
 
@@ -98,14 +97,12 @@ namespace AmazingUWPToolkit.Controls
                 Items.Add(textBoardItemModelToAdd);
             }
 
-            IsInitialized = true;
-
-            TryToSetModel();
+            SetModel();
 
             if (!isInitialTextSet &&
                 !string.IsNullOrWhiteSpace(Text))
             {
-                TryToSetText();
+                SetText();
             }
         }
 
@@ -128,9 +125,9 @@ namespace AmazingUWPToolkit.Controls
             return notRandomCTextBoardItemsIndexes;
         }
 
-        private void TryToSetModel()
+        private void SetModel()
         {
-            if (!IsInitialized)
+            if (!AreMainPropertiesSet)
                 return;
 
             if (AvailableWidth <= 0 ||
@@ -168,9 +165,9 @@ namespace AmazingUWPToolkit.Controls
             Model.RandomTextBoardItemOpacity = RandomTextBoardItemOpacity;
         }
 
-        private void TryToSetText()
+        private void SetText()
         {
-            if (!IsInitialized)
+            if (!AreMainPropertiesSet)
                 return;
 
             isInitialTextSet = true;

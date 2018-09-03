@@ -141,22 +141,22 @@ namespace AmazingUWPToolkit.Controls
 
         private static void OnTextPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoard)?.TryToSetText();
+            (dependencyObject as TextBoard)?.SetText();
         }
 
         private static void OnRandomCharsSetPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoard).TryToInitialize();
+            (dependencyObject as TextBoard).Initialize();
         }
 
         private static void OnColumnsCountPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoard).TryToInitialize();
+            (dependencyObject as TextBoard).Initialize();
         }
 
         private static void OnRowsCountPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoard).TryToInitialize();
+            (dependencyObject as TextBoard).Initialize();
         }
 
         private static void OnFontSizeToItemSizeRatioPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -166,7 +166,7 @@ namespace AmazingUWPToolkit.Controls
 
         private static void OnMaxItemSizeChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoard).TryToSetModel();
+            (dependencyObject as TextBoard).SetModel();
         }
 
         private static void OnRandomTextBoardItemOpacityPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
