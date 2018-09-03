@@ -19,9 +19,9 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(
             nameof(Model),
-            typeof(StackedBarOrientation),
+            typeof(StackedBarsModel),
             typeof(StackedBarItemGridAnimationBehavior),
-            new PropertyMetadata(StackedBarOrientation.Horizontal));
+            new PropertyMetadata(null));
 
         #endregion
 
