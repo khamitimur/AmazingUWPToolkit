@@ -8,6 +8,7 @@ using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace AmazingUWPToolkitDemo
@@ -27,6 +28,8 @@ namespace AmazingUWPToolkitDemo
             InitializeComponent();
 
             random = new Random();
+
+            SetStackedBars();
         }
 
         #endregion
@@ -56,21 +59,29 @@ namespace AmazingUWPToolkitDemo
 
         #region StackedBar
 
-        public ObservableCollection<StackedBarItem> StackedBars = new ObservableCollection<StackedBarItem>()
+        public ObservableCollection<StackedBarItem> StackedBars { get; private set; }
+
+        private void SetStackedBars()
         {
-            new StackedBarItem(40, Colors.Blue, "Flowers"),
-            new StackedBarItem(20, Colors.Red, "Food"),
-            new StackedBarItem(10, Colors.Gold, "Travel"),
-            new StackedBarItem(10, Colors.LightBlue, "Travel"),
-            new StackedBarItem(10, Colors.Magenta, "Travel"),
-            new StackedBarItem(10, Colors.DarkOrange, "Water")
-        };
+            StackedBars = new ObservableCollection<StackedBarItem>()
+            {
+                new StackedBarItem(){ Value = 40, Background = new SolidColorBrush(Colors.Blue), Label = "Flowers"},
+                new StackedBarItem(){ Value = 20, Background = new SolidColorBrush(Colors.Red), Label = "Food"},
+                new StackedBarItem(){ Value = 40, Background = new SolidColorBrush(Colors.Gold), Label = "Tea"},
+                new StackedBarItem(){ Value = 70, Background = new SolidColorBrush(Colors.LightBlue), Label = "Travel"},
+                new StackedBarItem(){ Value = 35, Background = new SolidColorBrush(Colors.Magenta), Label = "Water"}
+            };
+        }
 
         private void OnAddStakedBarItemButtonClick(object sender, RoutedEventArgs e)
         {
             var randomStackedBarItemValue = random.Next(1, 100);
             var randomStackedBarItemColor = Color.FromArgb(255, (byte)random.Next(50, 255), (byte)random.Next(50, 255), (byte)random.Next(50, 255));
-            var randomStackedBarItem = new StackedBarItem(randomStackedBarItemValue, randomStackedBarItemColor);
+            var randomStackedBarItem = new StackedBarItem()
+            {
+                Value = randomStackedBarItemValue,
+                Background = new SolidColorBrush(randomStackedBarItemColor)
+            };
 
             StackedBars.Add(randomStackedBarItem);
         }
@@ -87,15 +98,7 @@ namespace AmazingUWPToolkitDemo
 
         private void OnResetStakedBarItemButtonClick(object sender, RoutedEventArgs e)
         {
-            StackedBars = new ObservableCollection<StackedBarItem>()
-            {
-                new StackedBarItem(40, Colors.Blue, "Flowers"),
-                new StackedBarItem(20, Colors.Red, "Food"),
-                new StackedBarItem(10, Colors.Gold, "Travel"),
-                new StackedBarItem(10, Colors.LightBlue, "Travel"),
-                new StackedBarItem(10, Colors.Magenta, "Travel"),
-                new StackedBarItem(10, Colors.DarkOrange, "Water")
-            };
+            SetStackedBars();
         }
 
         #endregion

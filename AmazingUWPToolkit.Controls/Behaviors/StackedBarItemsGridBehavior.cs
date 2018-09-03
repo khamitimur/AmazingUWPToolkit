@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xaml.Interactivity;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -11,33 +10,31 @@ namespace AmazingUWPToolkit.Controls.Behaviors
     {
         #region Dependency Properties
 
-        public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(
-            nameof(Items),
-            typeof(ObservableCollection<StackedBarItem>),
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(
+            nameof(Model),
+            typeof(StackedBarsItemsModel),
             typeof(StackedBarItemsGridBehavior),
-            new PropertyMetadata(null, OnItemsPropertyChanged));
-
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
-            nameof(Orientation),
-            typeof(StackedBarOrientation),
-            typeof(StackedBarItemsGridBehavior),
-            new PropertyMetadata(default(Orientation)));
+            new PropertyMetadata(null, OnModelPropertyChanged));
 
         #endregion
 
         #region Properties
 
-        public ObservableCollection<StackedBarItem> Items
+        public StackedBarsItemsModel Model
         {
-            get => (ObservableCollection<StackedBarItem>)GetValue(ItemsProperty);
-            set => SetValue(ItemsProperty, value);
+            get => (StackedBarsItemsModel)GetValue(ModelProperty);
+            set => SetValue(ModelProperty, value);
         }
 
-        public StackedBarOrientation Orientation
-        {
-            get => (StackedBarOrientation)GetValue(OrientationProperty);
-            set => SetValue(OrientationProperty, value);
-        }
+        private bool CanSetGrid => AssociatedObject != null && Model?.Items != null;
+
+        private bool CanSetChildren =>
+            AssociatedObject?.Children != null &&
+            AssociatedObject.Children.Count != 0 &&
+            Model != null &&
+            Model.ItemsCount != 0 &&
+            Model.ItemsCount == AssociatedObject.Children.Count;
+
 
         #endregion
 
@@ -47,7 +44,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
         {
             if (AssociatedObject != null)
             {
-                AssociatedObject.Loaded += OnLoaded;
+                AssociatedObject.LayoutUpdated += OnLayoutUpdated;
             }
 
             TryToSetGrid();
@@ -59,7 +56,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
         {
             if (AssociatedObject != null)
             {
-                AssociatedObject.Loaded -= OnLoaded;
+                AssociatedObject.LayoutUpdated -= OnLayoutUpdated;
             }
 
             base.OnDetaching();
@@ -69,20 +66,22 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         #region Private Methods
 
-        private static void OnItemsPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        private static void OnModelPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             if (dependencyObject is StackedBarItemsGridBehavior stackedBarItemsGridBehavior)
             {
                 stackedBarItemsGridBehavior.TryToSetGrid();
 
-                if (e.OldValue is INotifyCollectionChanged oldValue)
+                if (e.OldValue is StackedBarsItemsModel oldStackedBarsItemsPanelModel &&
+                    oldStackedBarsItemsPanelModel.Items is INotifyCollectionChanged oldItems)
                 {
-                    oldValue.CollectionChanged -= stackedBarItemsGridBehavior.OnItemsCollectionChanged;
+                    oldItems.CollectionChanged -= stackedBarItemsGridBehavior.OnItemsCollectionChanged;
                 }
 
-                if (e.NewValue is INotifyCollectionChanged newValue)
+                if (e.NewValue is StackedBarsItemsModel newStackedBarsItemsPanelModel &&
+                    newStackedBarsItemsPanelModel.Items is INotifyCollectionChanged newItems)
                 {
-                    newValue.CollectionChanged += stackedBarItemsGridBehavior.OnItemsCollectionChanged;
+                    newItems.CollectionChanged += stackedBarItemsGridBehavior.OnItemsCollectionChanged;
                 }
             }
         }
@@ -92,35 +91,34 @@ namespace AmazingUWPToolkit.Controls.Behaviors
             TryToSetGrid();
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnLayoutUpdated(object sender, object e)
         {
             TryToSetChildren();
         }
 
         private void TryToSetGrid()
         {
-            if (AssociatedObject == null || Items == null)
+            if (!CanSetGrid)
                 return;
 
             AssociatedObject.ColumnDefinitions.Clear();
             AssociatedObject.RowDefinitions.Clear();
 
-            var itemsCount = Items.Count();
-            if (itemsCount == 0)
+            if (Model.ItemsCount == 0)
                 return;
 
             var gridLength = new GridLength(1, GridUnitType.Star);
 
-            if (Orientation == StackedBarOrientation.Horizontal)
+            if (Model.Orientation == StackedBarOrientation.Horizontal)
             {
-                for (int i = 0; i < itemsCount; i++)
+                for (int i = 0; i < Model.ItemsCount; i++)
                 {
                     AssociatedObject.ColumnDefinitions.Add(new ColumnDefinition() { Width = gridLength });
                 }
             }
             else
             {
-                for (int i = 0; i < itemsCount; i++)
+                for (int i = 0; i < Model.ItemsCount; i++)
                 {
                     AssociatedObject.RowDefinitions.Add(new RowDefinition() { Height = gridLength });
                 }
@@ -131,13 +129,10 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         private void TryToSetChildren()
         {
-            if (AssociatedObject?.Children?.Count == 0 ||
-                Items?.Count == 0)
-            {
+            if (!CanSetChildren)
                 return;
-            }
 
-            var valueDivider = Items.Sum(item => item.Value) / 100;
+            var valueDivider = Model.Items.Sum(item => item.Value) / 100;
 
             for (int i = 0; i < AssociatedObject.Children.Count; i++)
             {
@@ -150,7 +145,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 var dividedValue = stackedBarItem.Value / valueDivider;
                 var gridLength = new GridLength(dividedValue, GridUnitType.Star);
 
-                if (Orientation == StackedBarOrientation.Horizontal)
+                if (Model.Orientation == StackedBarOrientation.Horizontal)
                 {
                     Grid.SetColumn(child, i);
 

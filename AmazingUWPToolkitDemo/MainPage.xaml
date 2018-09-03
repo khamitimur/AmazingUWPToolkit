@@ -33,29 +33,29 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <controls:StackedBar Grid.Row="4"
+                            <controls:StackedBars Grid.Row="4"
                                                  Width="40"
                                                  Height="120"
                                                  Items="{x:Bind StackedBars, Mode=OneWay}"
                                                  Orientation="Vertical">
-                                <controls:StackedBar.Background>
+                                <controls:StackedBars.Background>
                                     <SolidColorBrush Opacity="0.1"
                                                      Color="Black" />
-                                </controls:StackedBar.Background>
-                            </controls:StackedBar>
+                                </controls:StackedBars.Background>
+                            </controls:StackedBars>
 
-                            <controls:StackedBar Width="300"
+                            <controls:StackedBars Grid.Column="2"
+                                                 Width="300"
                                                  Height="8"
-                                                 Grid.Column="2"
                                                  VerticalAlignment="Bottom"
                                                  CornerRadius="4"
                                                  Items="{x:Bind StackedBars, Mode=OneWay}"
                                                  Orientation="Horizontal">
-                                <controls:StackedBar.Background>
+                                <controls:StackedBars.Background>
                                     <SolidColorBrush Opacity="0.1"
                                                      Color="Black" />
-                                </controls:StackedBar.Background>
-                            </controls:StackedBar>
+                                </controls:StackedBars.Background>
+                            </controls:StackedBars>
                         </Grid>
 
                         <StackPanel Grid.Row="4"
