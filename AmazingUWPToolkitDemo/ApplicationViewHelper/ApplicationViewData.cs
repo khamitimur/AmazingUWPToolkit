@@ -35,7 +35,7 @@ namespace AmazingUWPToolkitDemo
 
         public Size? PreferredMinSize => new Size(1000, 1000);
 
-        public bool ConvertPreferredMinSizeUsingRawPixels => true;
+        public bool ConvertPreferredMinSizeUsingRawPixels => false;
 
         #endregion
     }
