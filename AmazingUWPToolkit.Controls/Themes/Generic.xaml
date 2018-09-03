@@ -3,7 +3,7 @@
                     xmlns:controls="using:AmazingUWPToolkit.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/StackedBars/StackedBars.xaml" />
-        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/TextBoard/TextBoard.xaml" />
+        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/TextBoard/TextBoard/TextBoard.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--  PullToRefresh  -->
