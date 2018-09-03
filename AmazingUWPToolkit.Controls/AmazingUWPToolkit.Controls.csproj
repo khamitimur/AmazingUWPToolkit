@@ -127,9 +127,10 @@
     <Compile Include="StackedBars\StackedBarOrientation.cs" />
     <Compile Include="TextBoard\ITextBoard.cs" />
     <Compile Include="TextBoard\TextBoard.cs" />
-    <Compile Include="TextBoard\TextBoardItemControl.cs" />
-    <Compile Include="TextBoard\TextBoardItem\ITextBoardItemModel.cs" />
-    <Compile Include="TextBoard\TextBoardItem\TextBoardItemModel.cs" />
+    <Compile Include="TextBoard\TextBoardItem\TextBoardItem.cs" />
+    <Compile Include="TextBoard\TextBoardItemModel\ITextBoardItemModel.cs" />
+    <Compile Include="TextBoard\TextBoardItemModel\TextBoardItemModel.cs" />
+    <Compile Include="TextBoard\TextBoardItem\ITextBoardItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AmazingUWPToolkit.Converters">
@@ -171,6 +172,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

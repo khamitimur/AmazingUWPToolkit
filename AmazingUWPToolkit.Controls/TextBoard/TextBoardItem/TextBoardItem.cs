@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Media;
 namespace AmazingUWPToolkit.Controls
 {
     [TemplatePart(Name = ROOTPANEL_NAME, Type = typeof(Panel))]
-    public sealed class TextBoardItemControl : Control
+    internal sealed class TextBoardItem : Control, ITextBoardItem
     {
         #region Fields
 
@@ -32,22 +32,22 @@ namespace AmazingUWPToolkit.Controls
         public static readonly DependencyProperty TextBoardItemModelProperty = DependencyProperty.Register(
             nameof(TextBoardItemModel),
             typeof(ITextBoardItemModel),
-            typeof(TextBoardItemControl),
+            typeof(TextBoardItem),
             new PropertyMetadata(null, OnTextBoardItemModelPropertyChanged));
 
         public static readonly DependencyProperty RandomTextBoardItemOpacityProperty = DependencyProperty.Register(
             nameof(RandomTextBoardItemOpacity),
             typeof(double),
-            typeof(TextBoardItemControl),
+            typeof(TextBoardItem),
             new PropertyMetadata(DEFAULT_RANDOM_TEXTBOARDITEM_OPACITY, OnRandomTextBoardItemOpacityPropertyChanged));
 
         #endregion
 
         #region Contructor
 
-        public TextBoardItemControl()
+        public TextBoardItem()
         {
-            DefaultStyleKey = typeof(TextBoardItemControl);
+            DefaultStyleKey = typeof(TextBoardItem);
 
             animationDelayRandom = new Random();
 
@@ -56,7 +56,7 @@ namespace AmazingUWPToolkit.Controls
 
         #endregion
 
-        #region Properties
+        #region Implementation of ITextBoardItem
 
         public ITextBoardItemModel TextBoardItemModel
         {
@@ -92,25 +92,25 @@ namespace AmazingUWPToolkit.Controls
 
         private static void OnTextBoardItemModelPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            if (dependencyObject is TextBoardItemControl textBoardItemControl)
+            if (dependencyObject is TextBoardItem textBoardItem)
             {
                 if (e.OldValue is ITextBoardItemModel oldTextBoardItemModel)
                 {
-                    oldTextBoardItemModel.Updated -= textBoardItemControl.OnTextBoardItemUpdated;
+                    oldTextBoardItemModel.Updated -= textBoardItem.OnTextBoardItemModelUpdated;
                 }
 
                 if (e.NewValue is ITextBoardItemModel newTextBoardItemModel)
                 {
-                    newTextBoardItemModel.Updated += textBoardItemControl.OnTextBoardItemUpdated;
+                    newTextBoardItemModel.Updated += textBoardItem.OnTextBoardItemModelUpdated;
                 }
 
-                textBoardItemControl.Update();
+                textBoardItem.Update();
             }
         }
 
         private static void OnRandomTextBoardItemOpacityPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as TextBoardItemControl)?.SetRandomTextBoardItemOpacity();
+            (dependencyObject as TextBoardItem)?.SetRandomTextBoardItemOpacity();
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -133,7 +133,7 @@ namespace AmazingUWPToolkit.Controls
             await SetOffset();
         }
 
-        private void OnTextBoardItemUpdated(object sender, EventArgs e)
+        private void OnTextBoardItemModelUpdated(object sender, EventArgs e)
         {
             Update();
         }

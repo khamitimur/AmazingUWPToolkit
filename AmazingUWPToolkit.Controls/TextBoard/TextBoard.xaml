@@ -139,11 +139,11 @@
         </Setter>
     </Style>
 
-    <Style TargetType="controls:TextBoardItemControl">
+    <Style TargetType="controls:TextBoardItem">
         <Setter Property="RandomTextBoardItemOpacity" Value="0.5" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="controls:TextBoardItemControl">
+                <ControlTemplate TargetType="controls:TextBoardItem">
                     <Grid x:Name="RootPanel"
                           VerticalAlignment="Top">
                         <TextBlock Style="{StaticResource TextBoardItemTextBlockStyle}"
@@ -168,8 +168,8 @@
                               ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
                         <GridView.ItemTemplate>
                             <DataTemplate>
-                                <controls:TextBoardItemControl FontSize="40"
-                                                               TextBoardItemModel="{Binding}" />
+                                <controls:TextBoardItem FontSize="40"
+                                                        TextBoardItemModel="{Binding}" />
                             </DataTemplate>
                         </GridView.ItemTemplate>
 
