@@ -125,6 +125,8 @@
     <Compile Include="StackedBars\StackedBars.cs" />
     <Compile Include="StackedBars\StackedBarItem.cs" />
     <Compile Include="StackedBars\StackedBarOrientation.cs" />
+    <Compile Include="TextBoard\TextBoardModel\ITextBoardModel.cs" />
+    <Compile Include="TextBoard\TextBoardModel\TextBoardModel.cs" />
     <Compile Include="TextBoard\TextBoard\ITextBoard.cs" />
     <Compile Include="TextBoard\TextBoard\TextBoard.cs" />
     <Compile Include="TextBoard\TextBoardItem\TextBoardItem.cs" />

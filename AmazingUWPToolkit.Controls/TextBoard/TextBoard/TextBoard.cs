@@ -29,6 +29,12 @@ namespace AmazingUWPToolkit.Controls
 
         #region Dependency Properties
 
+        internal static readonly DependencyProperty TextBoardModelProperty = DependencyProperty.Register(
+            nameof(TextBoardModel),
+            typeof(ITextBoardModel),
+            typeof(TextBoard),
+            new PropertyMetadata(null));
+
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
             typeof(string),
@@ -63,9 +69,8 @@ namespace AmazingUWPToolkit.Controls
 
             charItemsRandom = new Random();
 
+            TextBoardModel = new TextBoardModel();
             Items = new ObservableCollection<ITextBoardItemModel>();
-
-            DataContext = this;
 
             CHARITEMCONTROL_FONTSIZE_RATIO = Math.Min(MAX_ITEM_WIDTH, MAX_ITEM_HEIGHT) / CHARITEMCONTROL_MAX_FONTSIZE;
 
@@ -76,27 +81,20 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
+        [NotNull]
+        internal ITextBoardModel TextBoardModel
+        {
+            get => (ITextBoardModel)GetValue(TextBoardModelProperty);
+            set => SetValue(TextBoardModelProperty, value);
+        }
+
         internal bool IsInitialized { get; set; }
 
-        internal double ItemWidth { get; set; }
-
-        internal double ItemHeight { get; set; }
-
         internal double TextBoardItemControlMaxFontSize { get; set; }
-
-        internal double WrapPanelMaxWidth { get; set; }
-
-        internal double WrapPanelMaxHeight { get; set; }
 
         internal double AvailableWidth => ActualWidth - (Padding.Left + Padding.Right);
 
         internal double AvailableHeight => ActualHeight - (Padding.Top + Padding.Bottom);
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -128,6 +126,12 @@ namespace AmazingUWPToolkit.Controls
             get => (int)GetValue(RowsCountProperty);
             set => SetValue(RowsCountProperty, value);
         }
+
+        #endregion
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -241,22 +245,22 @@ namespace AmazingUWPToolkit.Controls
             if (AvailableWidth / MAX_ITEM_WIDTH >= ColumnsCount &&
                 AvailableHeight / MAX_ITEM_HEIGHT >= RowsCount)
             {
-                ItemWidth = MAX_ITEM_WIDTH;
-                ItemHeight = MAX_ITEM_HEIGHT;
+                TextBoardModel.ItemWidth = MAX_ITEM_WIDTH;
+                TextBoardModel.ItemHeight = MAX_ITEM_HEIGHT;
             }
             else
             {
                 var calculatedItemWidth = AvailableWidth / ColumnsCount;
                 var calculatedItemHeight = AvailableHeight / RowsCount;
 
-                ItemWidth = Math.Min(calculatedItemWidth, calculatedItemHeight);
-                ItemHeight = ItemWidth;
+                TextBoardModel.ItemWidth = Math.Min(calculatedItemWidth, calculatedItemHeight);
+                TextBoardModel.ItemHeight = TextBoardModel.ItemWidth;
             }
 
-            TextBoardItemControlMaxFontSize = Math.Min(ItemWidth, ItemHeight) / CHARITEMCONTROL_FONTSIZE_RATIO;
+            //TextBoardItemControlMaxFontSize = Math.Min(TextBoardModel.ItemWidth, TextBoardModel.ItemHeight) / CHARITEMCONTROL_FONTSIZE_RATIO;
 
-            WrapPanelMaxWidth = ItemWidth * ColumnsCount;
-            WrapPanelMaxHeight = ItemHeight * RowsCount;
+            TextBoardModel.WrapPanelMaxWidth = TextBoardModel.ItemWidth * ColumnsCount;
+            TextBoardModel.WrapPanelMaxHeight = TextBoardModel.ItemHeight * RowsCount;
         }
 
         private void SetText()

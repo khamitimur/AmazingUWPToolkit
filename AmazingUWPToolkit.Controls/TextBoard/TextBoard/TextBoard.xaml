@@ -163,9 +163,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:TextBoard">
-                    <GridView x:Name="GridView"
+                    <GridView x:Name="LayoutRoot"
                               Style="{StaticResource SimpleGridViewStyle}"
-                              ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
+                              ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}"
+                              Tag="{TemplateBinding TextBoardModel}">
                         <GridView.ItemTemplate>
                             <DataTemplate>
                                 <controls:TextBoardItem FontSize="40"
@@ -175,12 +176,12 @@
 
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VariableSizedWrapGrid MaxWidth="660"
-                                                       MaxHeight="660"
+                                <VariableSizedWrapGrid MaxWidth="{Binding ElementName=LayoutRoot, Path=Tag.WrapPanelMaxWidth}"
+                                                       MaxHeight="{Binding ElementName=LayoutRoot, Path=Tag.WrapPanelMaxHeight}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
-                                                       ItemHeight="60"
-                                                       ItemWidth="60"
+                                                       ItemHeight="{Binding ElementName=LayoutRoot, Path=Tag.ItemHeight}"
+                                                       ItemWidth="{Binding ElementName=LayoutRoot, Path=Tag.ItemWidth}"
                                                        Orientation="Horizontal" />
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
