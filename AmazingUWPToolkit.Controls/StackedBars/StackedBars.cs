@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -17,7 +17,7 @@ namespace AmazingUWPToolkit.Controls
 
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(
             nameof(Items),
-            typeof(ObservableCollection<StackedBarItem>),
+            typeof(ICollection<StackedBarItem>),
             typeof(StackedBars),
             new PropertyMetadata(null, OnItemsPropertyChanged));
 
@@ -64,9 +64,9 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        public ObservableCollection<StackedBarItem> Items
+        public ICollection<StackedBarItem> Items
         {
-            get => (ObservableCollection<StackedBarItem>)GetValue(ItemsProperty);
+            get => (ICollection<StackedBarItem>)GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
 

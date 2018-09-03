@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace AmazingUWPToolkit.Controls
 {
@@ -7,7 +7,7 @@ namespace AmazingUWPToolkit.Controls
     {
         #region Properties
 
-        public ObservableCollection<StackedBarItem> Items { get; set; }
+        public ICollection<StackedBarItem> Items { get; set; }
 
         public int ItemsCount => Items?.Count ?? 0;
 
