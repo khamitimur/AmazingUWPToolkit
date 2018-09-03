@@ -14,6 +14,10 @@ namespace AmazingUWPToolkit.Controls
 
         public double WrapPanelMaxHeight { get; set; }
 
+        public double FontSize { get; set; }
+
+        public double RandomTextBoardItemOpacity { get; set; }
+
         #endregion
 
         #region Implementation of INotifyPropertyChanged

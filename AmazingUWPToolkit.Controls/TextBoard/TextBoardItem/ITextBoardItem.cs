@@ -4,7 +4,7 @@
     {
         #region Properties
 
-        ITextBoardItemModel TextBoardItemModel { get; set; }
+        ITextBoardItemModel Model { get; set; }
 
         double RandomTextBoardItemOpacity { get; set; }
 

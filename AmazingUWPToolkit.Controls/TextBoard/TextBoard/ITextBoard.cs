@@ -16,6 +16,14 @@ namespace AmazingUWPToolkit.Controls
 
         int RowsCount { get; set; }
 
+        double FontSizeToItemSizeRatio { get; set; }
+
+        double MaxItemWidth { get; set; }
+
+        double MaxItemHeight { get; set; }
+
+        double RandomTextBoardItemOpacity { get; set; }
+
         #endregion
     }
 }

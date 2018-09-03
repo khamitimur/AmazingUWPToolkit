@@ -114,13 +114,14 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\StackedBarItemGridAnimationBehavior.cs" />
+    <Compile Include="Behaviors\StackedBars\StackedBarItemGridAnimationBehavior.cs" />
+    <Compile Include="Behaviors\TextBoardItem\TextBoardItemBehavior.cs" />
     <Compile Include="FontIconFxd\FontIconFxd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshListView.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshState.cs" />
-    <Compile Include="Behaviors\StackedBarItemsGridBehavior.cs" />
+    <Compile Include="Behaviors\StackedBars\StackedBarItemsGridBehavior.cs" />
     <Compile Include="StackedBars\StackedBarsModel.cs" />
     <Compile Include="StackedBars\StackedBars.cs" />
     <Compile Include="StackedBars\StackedBarItem.cs" />
@@ -174,7 +175,9 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="TextBoard\TextBoard\TextBoard.DependencyProperties.cs" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

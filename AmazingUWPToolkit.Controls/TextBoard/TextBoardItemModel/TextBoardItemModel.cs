@@ -16,12 +16,6 @@ namespace AmazingUWPToolkit.Controls
 
         #endregion
 
-        #region Overrides of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
         #region Overrides of object
 
         public override string ToString()
@@ -56,6 +50,12 @@ namespace AmazingUWPToolkit.Controls
 
             Updated?.Invoke(this, EventArgs.Empty);
         }
+
+        #endregion
+
+        #region Overrides of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
     }

@@ -9,55 +9,12 @@ using Windows.UI.Xaml.Controls;
 
 namespace AmazingUWPToolkit.Controls
 {
-    public sealed class TextBoard : Control, ITextBoard, INotifyPropertyChanged
+    public sealed partial class TextBoard : Control, ITextBoard, INotifyPropertyChanged
     {
         #region Fields
 
-        private readonly double CHARITEMCONTROL_FONTSIZE_RATIO;
-
-        private const double MAX_ITEM_WIDTH = 60;
-        private const double MAX_ITEM_HEIGHT = 60;
-
-        private const double CHARITEMCONTROL_MAX_FONTSIZE = 40d;
-
-        private const int MIN_SPACE_LENGTH_BETWEEN_WORDS = 1;
-
         private Random charItemsRandom;
         private bool isInitialTextSet;
-
-        #endregion
-
-        #region Dependency Properties
-
-        internal static readonly DependencyProperty TextBoardModelProperty = DependencyProperty.Register(
-            nameof(TextBoardModel),
-            typeof(ITextBoardModel),
-            typeof(TextBoard),
-            new PropertyMetadata(null));
-
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-            nameof(Text),
-            typeof(string),
-            typeof(TextBoard),
-            new PropertyMetadata(null, OnTextPropertyChanged));
-
-        public static readonly DependencyProperty RandomCharsSetProperty = DependencyProperty.Register(
-            nameof(RandomCharsSet),
-            typeof(string),
-            typeof(TextBoard),
-            new PropertyMetadata(null, OnRandomCharsSetPropertyChanged));
-
-        public static readonly DependencyProperty ColumnsCountProperty = DependencyProperty.Register(
-            nameof(ColumnsCount),
-            typeof(int),
-            typeof(TextBoard),
-            new PropertyMetadata(0, OnColumnsCountPropertyChanged));
-
-        public static readonly DependencyProperty RowsCountProperty = DependencyProperty.Register(
-            nameof(RowsCount),
-            typeof(int),
-            typeof(TextBoard),
-            new PropertyMetadata(0, OnRowsCountPropertyChanged));
 
         #endregion
 
@@ -69,10 +26,8 @@ namespace AmazingUWPToolkit.Controls
 
             charItemsRandom = new Random();
 
-            TextBoardModel = new TextBoardModel();
+            Model = new TextBoardModel();
             Items = new ObservableCollection<ITextBoardItemModel>();
-
-            CHARITEMCONTROL_FONTSIZE_RATIO = Math.Min(MAX_ITEM_WIDTH, MAX_ITEM_HEIGHT) / CHARITEMCONTROL_MAX_FONTSIZE;
 
             SizeChanged += OnSizeChanged;
         }
@@ -80,13 +35,6 @@ namespace AmazingUWPToolkit.Controls
         #endregion
 
         #region Properties
-
-        [NotNull]
-        internal ITextBoardModel TextBoardModel
-        {
-            get => (ITextBoardModel)GetValue(TextBoardModelProperty);
-            set => SetValue(TextBoardModelProperty, value);
-        }
 
         internal bool IsInitialized { get; set; }
 
@@ -103,30 +51,6 @@ namespace AmazingUWPToolkit.Controls
         [NotNull]
         public ObservableCollection<ITextBoardItemModel> Items { get; }
 
-        public string Text
-        {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
-
-        public string RandomCharsSet
-        {
-            get => (string)GetValue(RandomCharsSetProperty);
-            set => SetValue(RandomCharsSetProperty, value);
-        }
-
-        public int ColumnsCount
-        {
-            get => (int)GetValue(ColumnsCountProperty);
-            set => SetValue(ColumnsCountProperty, value);
-        }
-
-        public int RowsCount
-        {
-            get => (int)GetValue(RowsCountProperty);
-            set => SetValue(RowsCountProperty, value);
-        }
-
         #endregion
 
         #region Implementation of INotifyPropertyChanged
@@ -139,7 +63,7 @@ namespace AmazingUWPToolkit.Controls
 
         protected override void OnApplyTemplate()
         {
-            SetText();
+            TryToSetText();
 
             base.OnApplyTemplate();
         }
@@ -148,41 +72,12 @@ namespace AmazingUWPToolkit.Controls
 
         #region Private Methods
 
-        private static void OnTextPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            (dependencyObject as TextBoard)?.SetText();
-        }
-
-        private static void OnRandomCharsSetPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            if (dependencyObject is TextBoard textBoard)
-            {
-                textBoard.TryInitialize();
-            }
-        }
-
-        private static void OnColumnsCountPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            if (dependencyObject is TextBoard textBoard)
-            {
-                textBoard.TryInitialize();
-            }
-        }
-
-        private static void OnRowsCountPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            if (dependencyObject is TextBoard textBoard)
-            {
-                textBoard.TryInitialize();
-            }
-        }
-
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            SetSizes();
+            TryToSetModel();
         }
 
-        private void TryInitialize()
+        private void TryToInitialize()
         {
             if (string.IsNullOrWhiteSpace(RandomCharsSet) ||
                 ColumnsCount == 0 ||
@@ -205,12 +100,12 @@ namespace AmazingUWPToolkit.Controls
 
             IsInitialized = true;
 
-            SetSizes();
+            TryToSetModel();
 
             if (!isInitialTextSet &&
                 !string.IsNullOrWhiteSpace(Text))
             {
-                SetText();
+                TryToSetText();
             }
         }
 
@@ -233,7 +128,7 @@ namespace AmazingUWPToolkit.Controls
             return notRandomCTextBoardItemsIndexes;
         }
 
-        private void SetSizes()
+        private void TryToSetModel()
         {
             if (!IsInitialized)
                 return;
@@ -242,28 +137,38 @@ namespace AmazingUWPToolkit.Controls
                 AvailableHeight <= 0)
                 return;
 
-            if (AvailableWidth / MAX_ITEM_WIDTH >= ColumnsCount &&
-                AvailableHeight / MAX_ITEM_HEIGHT >= RowsCount)
+            if (AvailableWidth / MaxItemWidth >= ColumnsCount &&
+                AvailableHeight / MaxItemHeight >= RowsCount)
             {
-                TextBoardModel.ItemWidth = MAX_ITEM_WIDTH;
-                TextBoardModel.ItemHeight = MAX_ITEM_HEIGHT;
+                Model.ItemWidth = MaxItemWidth;
+                Model.ItemHeight = MaxItemHeight;
             }
             else
             {
                 var calculatedItemWidth = AvailableWidth / ColumnsCount;
                 var calculatedItemHeight = AvailableHeight / RowsCount;
 
-                TextBoardModel.ItemWidth = Math.Min(calculatedItemWidth, calculatedItemHeight);
-                TextBoardModel.ItemHeight = TextBoardModel.ItemWidth;
+                Model.ItemWidth = Math.Min(calculatedItemWidth, calculatedItemHeight);
+                Model.ItemHeight = Model.ItemWidth;
             }
 
-            //TextBoardItemControlMaxFontSize = Math.Min(TextBoardModel.ItemWidth, TextBoardModel.ItemHeight) / CHARITEMCONTROL_FONTSIZE_RATIO;
+            Model.WrapPanelMaxWidth = Model.ItemWidth * ColumnsCount;
+            Model.WrapPanelMaxHeight = Model.ItemHeight * RowsCount;
 
-            TextBoardModel.WrapPanelMaxWidth = TextBoardModel.ItemWidth * ColumnsCount;
-            TextBoardModel.WrapPanelMaxHeight = TextBoardModel.ItemHeight * RowsCount;
+            SetItemFontSize();
         }
 
-        private void SetText()
+        private void SetItemFontSize()
+        {
+            Model.FontSize = Math.Min(Model.ItemWidth, Model.ItemHeight) / FontSizeToItemSizeRatio;
+        }
+
+        private void SetRandomTextBoardItemOpacity()
+        {
+            Model.RandomTextBoardItemOpacity = RandomTextBoardItemOpacity;
+        }
+
+        private void TryToSetText()
         {
             if (!IsInitialized)
                 return;

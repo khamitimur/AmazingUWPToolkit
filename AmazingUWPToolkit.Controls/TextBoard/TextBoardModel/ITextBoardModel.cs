@@ -12,6 +12,10 @@
 
         double WrapPanelMaxHeight { get; set; }
 
+        double FontSize { get; set; }
+
+        double RandomTextBoardItemOpacity { get; set; }
+
         #endregion
     }
 }
