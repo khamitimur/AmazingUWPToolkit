@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:AmazingUWPToolkit.Controls">
-    <Style x:Key="TextBoardItemTextBlockStyleStyle"
+    <Style x:Key="TextBoardItemTextBlockStyle"
            TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="40" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="LineStackingStrategy" Value="MaxHeight" />
@@ -146,11 +146,11 @@
                 <ControlTemplate TargetType="controls:TextBoardItemControl">
                     <Grid x:Name="RootPanel"
                           VerticalAlignment="Top">
-                        <TextBlock Style="{StaticResource TextBoardItemTextBlockStyleStyle}"
+                        <TextBlock Style="{StaticResource TextBoardItemTextBlockStyle}"
                                    Foreground="Black"
                                    FontSize="{TemplateBinding FontSize}" />
 
-                        <TextBlock Style="{StaticResource TextBoardItemTextBlockStyleStyle}"
+                        <TextBlock Style="{StaticResource TextBoardItemTextBlockStyle}"
                                    Foreground="Black"
                                    FontSize="{TemplateBinding FontSize}" />
                     </Grid>
