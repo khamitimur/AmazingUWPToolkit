@@ -67,7 +67,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
         {
             isLoaded = true;
 
-            TryToAnimate();
+            Animate();
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -83,11 +83,10 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 return;
             }
 
-            TryToAnimate();
+            Animate();
         }
 
-
-        private async void TryToAnimate()
+        private async void Animate()
         {
             if (!isLoaded)
                 return;

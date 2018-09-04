@@ -64,11 +64,12 @@ namespace AmazingUWPToolkitDemo
         {
             StackedBars = new ObservableCollection<StackedBarItem>()
             {
-                new StackedBarItem(40, Colors.Blue, "Flowers"),
-                new StackedBarItem(20, Colors.Red, "Food"),
-                new StackedBarItem(30, Colors.Gold, "Tea"),
-                new StackedBarItem(70, Colors.LightBlue, "Travel"),
-                new StackedBarItem(35, Colors.Magenta, "Water")
+                new StackedBarItem(20, Colors.Blue, "Flowers"),
+                new StackedBarItem(30, Colors.Red, "Food"),
+                new StackedBarItem(10, Colors.Gold, "Tea"),
+                new StackedBarItem(20, Colors.LightBlue, "Travel"),
+                new StackedBarItem(10, Colors.Magenta, "Water"),
+                new StackedBarItem(10, Colors.Yellow, "Gift")
             };
         }
 

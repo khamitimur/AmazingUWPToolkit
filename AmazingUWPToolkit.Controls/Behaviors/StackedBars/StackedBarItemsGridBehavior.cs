@@ -46,7 +46,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 AssociatedObject.LayoutUpdated += OnLayoutUpdated;
             }
 
-            TryToSetGrid();
+            SetGrid();
 
             base.OnAttached();
         }
@@ -69,7 +69,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
         {
             if (dependencyObject is StackedBarItemsGridBehavior stackedBarItemsGridBehavior)
             {
-                stackedBarItemsGridBehavior.TryToSetGrid();
+                stackedBarItemsGridBehavior.SetGrid();
 
                 if (e.OldValue is StackedBarsModel oldStackedBarsItemsPanelModel &&
                     oldStackedBarsItemsPanelModel.Items is INotifyCollectionChanged oldItems)
@@ -87,15 +87,15 @@ namespace AmazingUWPToolkit.Controls.Behaviors
 
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            TryToSetGrid();
+            SetGrid();
         }
 
         private void OnLayoutUpdated(object sender, object e)
         {
-            TryToSetChildren();
+            SetChildren();
         }
 
-        private void TryToSetGrid()
+        private void SetGrid()
         {
             if (!CanSetGrid)
                 return;
@@ -123,10 +123,10 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 }
             }
 
-            TryToSetChildren();
+            SetChildren();
         }
 
-        private void TryToSetChildren()
+        private void SetChildren()
         {
             if (!CanSetChildren)
                 return;
@@ -144,15 +144,18 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 var dividedValue = stackedBarItem.Value / valueDivider;
                 var gridLength = new GridLength(dividedValue, GridUnitType.Star);
 
+                var spanValue = AssociatedObject.Children.Count - i;
+
                 if (Model.Orientation == StackedBarOrientation.Horizontal)
                 {
-                    Grid.SetColumn(child, i);
+                    Grid.SetColumnSpan(child, spanValue);
 
-                    AssociatedObject.ColumnDefinitions[i].Width = gridLength;
+                    AssociatedObject.ColumnDefinitions[spanValue - 1].Width = gridLength;
                 }
                 else
                 {
                     Grid.SetRow(child, i);
+                    Grid.SetRowSpan(child, spanValue);
 
                     AssociatedObject.RowDefinitions[i].Height = gridLength;
                 }
