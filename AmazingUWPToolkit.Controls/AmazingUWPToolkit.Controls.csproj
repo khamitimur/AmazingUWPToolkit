@@ -121,11 +121,11 @@
     <Compile Include="PullToRefreshListView\PullToRefreshListView.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshState.cs" />
-    <Compile Include="Behaviors\StackedBars\StackedBarItemsGridBehavior.cs" />
     <Compile Include="StackedBars\StackedBarsModel.cs" />
     <Compile Include="StackedBars\StackedBars.cs" />
     <Compile Include="StackedBars\StackedBarItem.cs" />
-    <Compile Include="StackedBars\StackedBarOrientation.cs" />
+    <Compile Include="StackedItemsPanel\IStackedItem.cs" />
+    <Compile Include="StackedItemsPanel\StackedItemsPanel.cs" />
     <Compile Include="TextBoard\TextBoardModel\ITextBoardModel.cs" />
     <Compile Include="TextBoard\TextBoardModel\TextBoardModel.cs" />
     <Compile Include="TextBoard\TextBoard\ITextBoard.cs" />
@@ -178,6 +178,7 @@
   <ItemGroup>
     <Compile Include="TextBoard\TextBoard\TextBoard.DependencyProperties.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

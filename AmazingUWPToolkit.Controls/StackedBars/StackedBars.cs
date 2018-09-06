@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using JetBrains.Annotations;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,15 +20,15 @@ namespace AmazingUWPToolkit.Controls
             nameof(Items),
             typeof(ICollection<StackedBarItem>),
             typeof(StackedBars),
-            new PropertyMetadata(null, OnItemsPropertyChanged));
+            new PropertyMetadata(null));
 
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
             nameof(Orientation),
-            typeof(StackedBarOrientation),
+            typeof(Orientation),
             typeof(StackedBars),
-            new PropertyMetadata(StackedBarOrientation.Horizontal, OnOrientationPropertyChanged));
+            new PropertyMetadata(default(Orientation), OnOrientationPropertyChanged));
 
-        public static readonly DependencyProperty CornerRadiusProperty =  DependencyProperty.Register(
+        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(
             nameof(CornerRadius),
             typeof(CornerRadius),
             typeof(StackedBars),
@@ -58,6 +59,8 @@ namespace AmazingUWPToolkit.Controls
         public StackedBars()
         {
             DefaultStyleKey = typeof(StackedBars);
+
+            StackedBarsModel = new StackedBarsModel();
         }
 
         #endregion
@@ -70,9 +73,9 @@ namespace AmazingUWPToolkit.Controls
             set => SetValue(ItemsProperty, value);
         }
 
-        public StackedBarOrientation Orientation
+        public Orientation Orientation
         {
-            get => (StackedBarOrientation)GetValue(OrientationProperty);
+            get => (Orientation)GetValue(OrientationProperty);
             set => SetValue(OrientationProperty, value);
         }
 
@@ -94,6 +97,7 @@ namespace AmazingUWPToolkit.Controls
             set => SetValue(AnimationEasingTypeProperty, value);
         }
 
+        [NotNull]
         internal StackedBarsModel StackedBarsModel
         {
             get => (StackedBarsModel)GetValue(StackedBarsModelProperty);
@@ -103,11 +107,6 @@ namespace AmazingUWPToolkit.Controls
         #endregion
 
         #region Private Methods
-
-        private static void OnItemsPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            (dependencyObject as StackedBars)?.SetStackBarsItemsPanelModel();
-        }
 
         private static void OnOrientationPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
@@ -126,13 +125,9 @@ namespace AmazingUWPToolkit.Controls
 
         private void SetStackBarsItemsPanelModel()
         {
-            StackedBarsModel = new StackedBarsModel
-            {
-                Items = Items,
-                Orientation = Orientation,
-                AnimationDuration = AnimationDuration,
-                AnimationEasingType = AnimationEasingType
-            };
+            StackedBarsModel.Orientation = Orientation;
+            StackedBarsModel.AnimationDuration = AnimationDuration;
+            StackedBarsModel.AnimationEasingType = AnimationEasingType;
         }
 
         #endregion

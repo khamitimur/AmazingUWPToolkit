@@ -33,8 +33,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <controls:StackedBars Grid.Row="4"
-                                                  Width="40"
+                            <controls:StackedBars Width="40"
                                                   Height="120"
                                                   Items="{x:Bind StackedBars, Mode=OneWay}"
                                                   Orientation="Vertical">

@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Media;
 
 namespace AmazingUWPToolkit.Controls
 {
-    public class StackedBarItem
+    public class StackedBarItem : IStackedItem
     {
         #region Contructor
 
@@ -42,12 +42,17 @@ namespace AmazingUWPToolkit.Controls
 
         #region Properties
 
-        public double Value { get; }
-
         [NotNull]
         public Brush Background { get; }
 
         public string Label { get; }
+
+        #endregion
+
+        #region Implementation of IStackedItem
+
+        public double Value { get; set; }
+
         #endregion
     }
 }

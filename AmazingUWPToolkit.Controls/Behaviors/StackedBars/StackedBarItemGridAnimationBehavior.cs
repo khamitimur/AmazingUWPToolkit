@@ -77,8 +77,8 @@ namespace AmazingUWPToolkit.Controls.Behaviors
                 Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height)
             };
 
-            if ((Model.Orientation == StackedBarOrientation.Horizontal && e.PreviousSize.Width != 0) ||
-                (Model.Orientation == StackedBarOrientation.Vertical && e.PreviousSize.Height != 0))
+            if ((Model.Orientation == Orientation.Horizontal && e.PreviousSize.Width != 0) ||
+                (Model.Orientation == Orientation.Vertical && e.PreviousSize.Height != 0))
             {
                 return;
             }
@@ -97,7 +97,7 @@ namespace AmazingUWPToolkit.Controls.Behaviors
             if (!(AssociatedObject.Children[0] is FrameworkElement child))
                 return;
 
-            if (Model.Orientation == StackedBarOrientation.Horizontal)
+            if (Model.Orientation == Orientation.Horizontal)
             {
                 await child.Offset(offsetX: -(float)AssociatedObject.ActualWidth, duration: 0).StartAsync();
                 await child.Offset(offsetX: 0, duration: (float)Model.AnimationDuration, easingType: Model.AnimationEasingType).StartAsync();

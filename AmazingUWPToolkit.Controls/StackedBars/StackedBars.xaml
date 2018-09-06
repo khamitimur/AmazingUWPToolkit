@@ -32,11 +32,7 @@
                                           ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <Grid x:Name="ItemsPanelGrid">
-                                            <interactivity:Interaction.Behaviors>
-                                                <behaviors:StackedBarItemsGridBehavior Model="{Binding ElementName=RootPanel, Path=Tag}" />
-                                            </interactivity:Interaction.Behaviors>
-                                        </Grid>
+                                        <controls:StackedItemsPanel Orientation="{Binding ElementName=RootPanel, Path=Tag.Orientation}" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using System.Collections.Generic;
+using Windows.UI.Xaml.Controls;
 
 namespace AmazingUWPToolkit.Controls
 {
@@ -7,11 +7,7 @@ namespace AmazingUWPToolkit.Controls
     {
         #region Properties
 
-        public ICollection<StackedBarItem> Items { get; set; }
-
-        public int ItemsCount => Items?.Count ?? 0;
-
-        public StackedBarOrientation Orientation { get; set; }
+        public Orientation Orientation { get; set; }
 
         public double AnimationDuration { get; set; }
 
