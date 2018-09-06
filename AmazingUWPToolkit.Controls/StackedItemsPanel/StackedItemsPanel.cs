@@ -26,18 +26,22 @@ namespace AmazingUWPToolkit.Controls
 
         #endregion
 
-        #region Private Methods
-
-        private static void OnOrientationPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            (dependencyObject as StackedItemsPanel)?.SetColumnsAndRows();
-        }
+        #region Overrides of Panel
 
         protected override Size MeasureOverride(Size availableSize)
         {
             SetColumnsAndRows();
 
             return base.MeasureOverride(availableSize);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private static void OnOrientationPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        {
+            (dependencyObject as StackedItemsPanel)?.SetColumnsAndRows();
         }
 
         private void SetColumnsAndRows()
