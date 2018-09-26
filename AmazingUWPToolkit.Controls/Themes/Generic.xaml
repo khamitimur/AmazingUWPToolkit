@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/StackedBars/StackedBars.xaml" />
         <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/TextBoard/TextBoard/TextBoard.xaml" />
+        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/FluidRotatePanel/FluidRotatePanel.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--  PullToRefresh  -->

@@ -14,21 +14,11 @@ namespace AmazingUWPToolkitDemo
 {
     public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
-        #region Fields
-
-        private Random random;
-
-        #endregion
-
         #region Contructor
 
         public MainPage()
         {
             InitializeComponent();
-
-            random = new Random();
-
-            SetStackedBars();
         }
 
         #endregion
@@ -52,49 +42,6 @@ namespace AmazingUWPToolkitDemo
             await SetApplicationViewHelperAsync();
 
             base.OnNavigatedTo(e);
-        }
-
-        #endregion
-
-        #region StackedBar
-
-        public ObservableCollection<StackedBarItem> StackedBars { get; private set; }
-
-        private void SetStackedBars()
-        {
-            StackedBars = new ObservableCollection<StackedBarItem>()
-            {
-                new StackedBarItem(20, Colors.Blue, "Flowers"),
-                new StackedBarItem(30, Colors.Red, "Food"),
-                new StackedBarItem(10, Colors.Gold, "Tea"),
-                new StackedBarItem(20, Colors.LightBlue, "Travel"),
-                new StackedBarItem(10, Colors.Magenta, "Water"),
-                new StackedBarItem(10, Colors.Yellow, "Gift")
-            };
-        }
-
-        private void OnAddStakedBarItemButtonClick(object sender, RoutedEventArgs e)
-        {
-            var randomStackedBarItemValue = random.Next(10, 50);
-            var randomStackedBarItemColor = Color.FromArgb(255, (byte)random.Next(50, 255), (byte)random.Next(50, 255), (byte)random.Next(50, 255));
-            var randomStackedBarItem = new StackedBarItem(randomStackedBarItemValue, randomStackedBarItemColor);
-
-            StackedBars.Add(randomStackedBarItem);
-        }
-
-        private void OnRemoveStakedBarItemButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (StackedBars.Count == 0)
-                return;
-
-            var randomStackedBarItemIndex = random.Next(0, StackedBars.Count);
-
-            StackedBars.RemoveAt(randomStackedBarItemIndex);
-        }
-
-        private void OnResetStakedBarItemButtonClick(object sender, RoutedEventArgs e)
-        {
-            SetStackedBars();
         }
 
         #endregion

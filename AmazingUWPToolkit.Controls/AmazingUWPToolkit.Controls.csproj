@@ -114,18 +114,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\StackedBars\StackedBarItemGridAnimationBehavior.cs" />
-    <Compile Include="Behaviors\TextBoardItem\TextBoardItemBehavior.cs" />
-    <Compile Include="FontIconFxd\FontIconFxd.cs" />
+    <Compile Include="FluidRotatePanel\FluidRotatePanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshListView.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshState.cs" />
-    <Compile Include="StackedBars\StackedBarsModel.cs" />
-    <Compile Include="StackedBars\StackedBars.cs" />
-    <Compile Include="StackedBars\StackedBarItem.cs" />
-    <Compile Include="StackedItemsPanel\IStackedItem.cs" />
-    <Compile Include="StackedItemsPanel\StackedItemsPanel.cs" />
     <Compile Include="TextBoard\TextBoardModel\ITextBoardModel.cs" />
     <Compile Include="TextBoard\TextBoardModel\TextBoardModel.cs" />
     <Compile Include="TextBoard\TextBoard\ITextBoard.cs" />
@@ -159,7 +152,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="StackedBars\StackedBars.xaml">
+    <Page Include="FluidRotatePanel\FluidRotatePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

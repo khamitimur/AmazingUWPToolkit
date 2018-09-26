@@ -7,74 +7,7 @@
           Background="{ThemeResource WindowBackgroundBrush}">
         <Pivot Margin="{x:Bind ApplicationViewHelper.TitleBarMargin, Mode=OneWay}">
             <PivotItem Header="Controls">
-                <Grid Margin="0,20">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Top">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="12" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="12" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock FontSize="15"
-                                   FontWeight="Medium"
-                                   Text="STACKED BAR" />
-
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="12" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <controls:StackedBars Width="40"
-                                                  Height="120"
-                                                  Items="{x:Bind StackedBars, Mode=OneWay}"
-                                                  Orientation="Vertical">
-                                <controls:StackedBars.Background>
-                                    <SolidColorBrush Opacity="0.1"
-                                                     Color="Black" />
-                                </controls:StackedBars.Background>
-                            </controls:StackedBars>
-
-                            <controls:StackedBars Grid.Column="2"
-                                                  Width="300"
-                                                  Height="8"
-                                                  VerticalAlignment="Bottom"
-                                                  CornerRadius="4"
-                                                  Items="{x:Bind StackedBars, Mode=OneWay}"
-                                                  Orientation="Horizontal">
-                                <controls:StackedBars.Background>
-                                    <SolidColorBrush Opacity="0.1"
-                                                     Color="Black" />
-                                </controls:StackedBars.Background>
-                            </controls:StackedBars>
-                        </Grid>
-
-                        <StackPanel Grid.Row="4"
-                                    Orientation="Horizontal">
-                            <Button MinWidth="120"
-                                    Click="OnAddStakedBarItemButtonClick"
-                                    Content="Add" />
-
-                            <Button MinWidth="120"
-                                    Margin="8,0,0,0"
-                                    Click="OnRemoveStakedBarItemButtonClick"
-                                    Content="Remove" />
-
-                            <Button MinWidth="120"
-                                    Margin="8,0,0,0"
-                                    Click="OnResetStakedBarItemButtonClick"
-                                    Content="Reset" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
+                <Grid Margin="0,20" />
             </PivotItem>
 
             <PivotItem Header="TextBoard">
