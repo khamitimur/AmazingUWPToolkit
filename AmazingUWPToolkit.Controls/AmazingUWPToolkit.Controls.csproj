@@ -114,7 +114,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="FluidRotatePanel\FluidRotatePanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshListView.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
@@ -152,10 +151,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FluidRotatePanel\FluidRotatePanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="TextBoard\TextBoard\TextBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
