@@ -114,6 +114,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\TextBoardItemBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshListView.cs" />
     <Compile Include="PullToRefreshListView\PullToRefreshProgressEventArgs.cs" />
