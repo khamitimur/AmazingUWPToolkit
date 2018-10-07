@@ -13,6 +13,8 @@ namespace AmazingUWPToolkit.Gaze
     {
         #region Fields
 
+        private bool isStarted;
+
         private const double TIMER_INTERVAL = 20;
         private const double ACTION_INTERVAL = 400;
 
@@ -70,6 +72,11 @@ namespace AmazingUWPToolkit.Gaze
 
         public void Start()
         {
+            if (isStarted)
+                return;
+
+            isStarted = true;
+
             gazeDeviceWatcherPreview.Added += OnGazeDeviceWatcherAdded;
             gazeDeviceWatcherPreview.Updated += OnGazeDeviceWatcherUpdated;
             gazeDeviceWatcherPreview.Removed += OnGazeDeviceWatcherRemoved;

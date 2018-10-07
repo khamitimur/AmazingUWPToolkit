@@ -34,7 +34,7 @@ namespace AmazingUWPToolkit.Gaze.Controls
         private int originalZIndex;
         private bool isScaled;
 
-        InputInjector inputInjector;
+        private InputInjector inputInjector;
 
         #endregion
 
