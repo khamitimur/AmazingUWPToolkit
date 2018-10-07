@@ -114,6 +114,9 @@
     <Compile Include="Gaze.cs" />
     <Compile Include="GazeTracker\GazeTracker.cs" />
     <Compile Include="GazeTracker\IGazeTracker.cs" />
+    <Compile Include="InputInjectorHelper\IInputInjectorHelper.cs" />
+    <Compile Include="InputInjectorHelper\InputInjectorHelper.cs" />
+    <Compile Include="InputInjectorHelper\InputInjectorPointerDeviceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\AmazingUWPToolkit.Gaze.rd.xml" />
   </ItemGroup>
