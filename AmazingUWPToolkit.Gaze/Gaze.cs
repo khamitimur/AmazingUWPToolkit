@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Windows.Foundation;
 using Windows.UI.ViewManagement;
 
 namespace AmazingUWPToolkit.Gaze
@@ -7,6 +8,7 @@ namespace AmazingUWPToolkit.Gaze
     {
         #region Fields
 
+        private static IInputInjectorHelper inputInjectorHelper;
         private static Dictionary<int, GazeTracker> gazeTrackerIntances;
 
         #endregion
@@ -15,6 +17,7 @@ namespace AmazingUWPToolkit.Gaze
 
         static Gaze()
         {
+            inputInjectorHelper = new InputInjectorHelper();
             gazeTrackerIntances = new Dictionary<int, GazeTracker>();
         }
 
@@ -38,6 +41,16 @@ namespace AmazingUWPToolkit.Gaze
             }
 
             return gazeTracker;
+        }
+
+        public static void InjectInput(Point point)
+        {
+            inputInjectorHelper.Inject(point);
+        }
+
+        public static void UninitializeInputInjection()
+        {
+            inputInjectorHelper.UninitializeInjection();
         }
 
         #endregion
