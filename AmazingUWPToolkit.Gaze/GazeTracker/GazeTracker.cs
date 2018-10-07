@@ -21,7 +21,6 @@ namespace AmazingUWPToolkit.Gaze
         private static GazeDeviceWatcherPreview gazeDeviceWatcherPreview;
         private static GazeInputSourcePreview gazeInputSourcePreview;
 
-        private readonly List<Control> controls;
         private Control currentControlUnderGaze;
 
         private static DispatcherTimer timer;
@@ -35,7 +34,7 @@ namespace AmazingUWPToolkit.Gaze
 
         public GazeTracker()
         {
-            controls = new List<Control>();
+            Controls = new List<Control>();
 
             gazeDeviceWatcherPreview = GazeInputSourcePreview.CreateWatcher();
 
@@ -48,24 +47,32 @@ namespace AmazingUWPToolkit.Gaze
 
         #endregion
 
+        #region Properties
+
+        internal List<Control> Controls { get; }
+
+        #endregion
+
         #region Overrides of IGazeTracker
+
+        public int ControlsCount => Controls?.Count ?? 0;
 
         public bool AddControl(Control control)
         {
-            if (controls.Contains(control))
+            if (Controls.Contains(control))
                 return false;
 
-            controls.Add(control);
+            Controls.Add(control);
 
             return true;
         }
 
         public bool RemoveControl(Control control)
         {
-            if (!controls.Contains(control))
+            if (!Controls.Contains(control))
                 return false;
 
-            controls.Remove(control);
+            Controls.Remove(control);
 
             return true;
         }
@@ -127,6 +134,7 @@ namespace AmazingUWPToolkit.Gaze
             StopGazeTracking();
         }
 
+        // TODO: Сделать нормальные диалоги.
         private async void StartGazeTrackingAsync(GazeDevicePreview gazeDevice)
         {
             if (IsSupportedDevice(gazeDevice))
@@ -140,7 +148,7 @@ namespace AmazingUWPToolkit.Gaze
             {
                 System.Diagnostics.Debug.WriteLine("Your device needs to calibrate. Please wait for it to finish.");
 
-                //await gazeDevice.RequestCalibrationAsync();
+                await gazeDevice.RequestCalibrationAsync();
             }
             else if (gazeDevice.ConfigurationState == GazeDeviceConfigurationStatePreview.Configuring)
             {
@@ -159,7 +167,7 @@ namespace AmazingUWPToolkit.Gaze
 
         private void OnGazeInputSourcePreviewGazeMoved(GazeInputSourcePreview sender, GazeMovedPreviewEventArgs args)
         {
-            if (controls?.Count == 0)
+            if (Controls?.Count == 0)
                 return;
 
             if (args.CurrentPoint.EyeGazePosition == null)
@@ -216,9 +224,9 @@ namespace AmazingUWPToolkit.Gaze
 
         private Control FindControlUnderGaze(Point gazePoint)
         {
-            for (var i = 0; i < controls.Count; i++)
+            for (var i = 0; i < Controls.Count; i++)
             {
-                var control = controls[i];
+                var control = Controls[i];
                 if (IsControlUnderGaze(control, gazePoint))
                 {
                     return control;

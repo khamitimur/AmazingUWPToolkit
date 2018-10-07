@@ -1,8 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using System;
 using System.Diagnostics;
 using Windows.Foundation;
-using Windows.UI.Input.Preview.Injection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -33,8 +31,6 @@ namespace AmazingUWPToolkit.Gaze.Controls
 
         private int originalZIndex;
         private bool isScaled;
-
-        private InputInjector inputInjector;
 
         #endregion
 
@@ -127,8 +123,7 @@ namespace AmazingUWPToolkit.Gaze.Controls
 
         public void OnGazeExited()
         {
-            inputInjector?.UninitializePenInjection();
-            inputInjector = null;
+            Gaze.UninitializeInputInjection();
 
             VisualStateManager.GoToState(this, NORMAL_VISUALSTATE_NAME, true);
 
@@ -164,7 +159,7 @@ namespace AmazingUWPToolkit.Gaze.Controls
                 isScaled = false;
             }
 
-            InjectInput(point);
+            Gaze.InjectInput(point);
         }
 
         #endregion
@@ -182,115 +177,6 @@ namespace AmazingUWPToolkit.Gaze.Controls
                                  centerY,
                                  duration,
                                  easingType: EasingType.Back);
-        }
-
-        private void InjectInput(Point point)
-        {
-            if (inputInjector == null)
-            {
-                inputInjector = InputInjector.TryCreate();
-            }
-
-            if (inputInjector == null)
-                return;
-
-            inputInjector.InitializePenInjection(InjectedInputVisualizationMode.None);
-
-            var pointerId = (uint)new Random().Next(0, int.MaxValue);
-
-            var injectedInputPenInfo = new InjectedInputPenInfo
-            {
-                PointerInfo = new InjectedInputPointerInfo
-                {
-                    PointerId = pointerId,
-                    PixelLocation = new InjectedInputPoint
-                    {
-                        PositionX = (int)point.X,
-                        PositionY = (int)point.Y
-                    },
-                    PointerOptions = InjectedInputPointerOptions.PointerDown |
-                                     InjectedInputPointerOptions.InContact |
-                                     InjectedInputPointerOptions.New
-                 },
-                Pressure = 1.0,
-                PenParameters = InjectedInputPenParameters.Pressure
-            };
-
-            inputInjector.InjectPenInput(injectedInputPenInfo);
-
-            injectedInputPenInfo = new InjectedInputPenInfo
-            {
-                PointerInfo = new InjectedInputPointerInfo
-                {
-                    PointerId = pointerId,
-                    PointerOptions = InjectedInputPointerOptions.PointerUp
-                }
-            };
-
-            inputInjector.InjectPenInput(injectedInputPenInfo);
-
-            //uint pointerId = pointerPoint.PointerId + 1;
-
-            //var appBounds = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().VisibleBounds;
-
-            //Point appBoundsTopLeft = new Point(appBounds.Left, appBounds.Top);
-
-            //var injectArea = ContainerInject.TransformToVisual(Window.Current.Content);
-
-            //Point injectAreaTopLeft = injectArea.TransformPoint(new Point(0, 0));
-
-            //int pointerPointX = (int)pointerPoint.Position.X;
-            //int pointerPointY = (int)pointerPoint.Position.Y;
-
-            //Point injectionPoint =
-            //    new Point(
-            //        appBoundsTopLeft.X + injectAreaTopLeft.X + pointerPointX,
-            //        appBoundsTopLeft.Y + injectAreaTopLeft.Y + pointerPointY);
-
-            //var touchData = new List<InjectedInputTouchInfo>
-            //{
-            //    new InjectedInputTouchInfo
-            //    {
-            //        Contact = new InjectedInputRectangle
-            //        {
-            //            Left = 30, Top = 30, Bottom = 30, Right = 30
-            //        },
-            //        PointerInfo = new InjectedInputPointerInfo
-            //        {
-            //            PointerId = pointerId,
-            //            PointerOptions =
-            //            InjectedInputPointerOptions.PointerDown |
-            //            InjectedInputPointerOptions.InContact |
-            //            InjectedInputPointerOptions.New,
-            //            TimeOffsetInMilliseconds = 0,
-            //            PixelLocation = new InjectedInputPoint
-            //            {
-            //                PositionX = (int)injectionPoint.X ,
-            //                PositionY = (int)injectionPoint.Y
-            //            }
-            //    },
-            //    Pressure = 1.0,
-            //    TouchParameters =
-            //        InjectedInputTouchParameters.Pressure |
-            //        InjectedInputTouchParameters.Contact
-            //    }
-            //};
-
-            //_inputInjector.InjectTouchInput(touchData);
-
-            //touchData = new List<InjectedInputTouchInfo>
-            //{
-            //    new InjectedInputTouchInfo
-            //    {
-            //        PointerInfo = new InjectedInputPointerInfo
-            //        {
-            //            PointerId = pointerId,
-            //            PointerOptions = InjectedInputPointerOptions.PointerUp
-            //        }
-            //    }
-            //};
-
-            //_inputInjector.InjectTouchInput(touchData);
         }
 
         #endregion
