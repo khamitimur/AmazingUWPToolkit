@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Weavers>
   <PropertyChanged/>
-  <NullGuard IncludeDebugAssert="false"
-             Mode="Explicit" />
+  <NullGuard Mode="Explicit" IncludeDebugAssert="False" />
+  <JetBrainsAnnotations />
 </Weavers>

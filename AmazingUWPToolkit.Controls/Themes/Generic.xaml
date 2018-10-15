@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:AmazingUWPToolkit.Controls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/TextBoard/TextBoard/TextBoard.xaml" />
+        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/TextBoard/TextBoard.xaml" />
+        <ResourceDictionary Source="ms-appx:///AmazingUWPToolkit.Controls/FlipCharItem/FlipCharItem.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--  PullToRefresh  -->

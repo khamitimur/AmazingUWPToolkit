@@ -1,12 +1,20 @@
-﻿namespace AmazingUWPToolkit.Controls
+﻿using JetBrains.Annotations;
+
+namespace AmazingUWPToolkit.Controls
 {
     internal interface ITextBoardItem
     {
         #region Properties
 
-        ITextBoardItemModel Model { get; set; }
+        char Char { get; }
 
-        double RandomTextBoardItemOpacity { get; set; }
+        bool IsRandom { get; }
+
+        #endregion
+
+        #region Methods
+
+        void Update([NotNull] ITextBoardItem textBoardItem);
 
         #endregion
     }

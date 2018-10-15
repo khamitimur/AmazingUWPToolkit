@@ -19,7 +19,6 @@
 
                     <controls:TextBoard x:Name="TextBoard"
                                         ColumnsCount="11"
-                                        RandomCharsSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                                         RowsCount="11"
                                         Text="THIS IS TEST" />
 
