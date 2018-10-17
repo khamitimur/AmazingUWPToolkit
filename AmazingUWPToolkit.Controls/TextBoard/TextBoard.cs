@@ -29,7 +29,6 @@ namespace AmazingUWPToolkit.Controls
         private VariableSizedWrapGrid itemsPanel;
 
         private Random charItemsRandom;
-        private bool isInitialTextSet;
 
         #endregion
 
@@ -148,7 +147,7 @@ namespace AmazingUWPToolkit.Controls
                 gridView.ItemsSource = Items;
             }
 
-            InitializeItems();
+            SetItems();
             SetText();
 
             base.OnApplyTemplate();
@@ -167,7 +166,7 @@ namespace AmazingUWPToolkit.Controls
         {
             if (e.NewValue is string stringValue && string.IsNullOrEmpty(stringValue)) throw new ArgumentOutOfRangeException($"{nameof(RandomChars)} can't be null or empty.");
 
-            (dependencyObject as TextBoard)?.InitializeItems();
+            (dependencyObject as TextBoard)?.SetItems();
         }
 
         private static void OnColumnsCountPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -177,7 +176,7 @@ namespace AmazingUWPToolkit.Controls
             if (dependencyObject is TextBoard textBoard)
             {
                 textBoard.SetItemsPanel();
-                textBoard.InitializeItems();
+                textBoard.SetItems();
             }
         }
 
@@ -188,7 +187,7 @@ namespace AmazingUWPToolkit.Controls
             if (dependencyObject is TextBoard textBoard)
             {
                 textBoard.SetItemsPanel();
-                textBoard.InitializeItems();
+                textBoard.SetItems();
             }
         }
 
@@ -249,28 +248,31 @@ namespace AmazingUWPToolkit.Controls
             itemsPanel.MaxHeight = itemsPanel.ItemHeight * RowsCount;
         }
 
-        private void InitializeItems()
+        private void SetItems()
         {
             if (string.IsNullOrWhiteSpace(RandomChars) || ColumnsCount == 0 || RowsCount == 0)
                 return;
 
-            // TODO: Сделать нормальную переинициализацию.
-            if (Items.Count > 0)
+            var desiredItemsCount = ColumnsCount * RowsCount;
+            if (desiredItemsCount == 0)
                 return;
 
-            var textBoardItemsToAdd = new List<ITextBoardItem>();
-
-            for (int i = 0; i < ColumnsCount * RowsCount; i++)
+            if (desiredItemsCount > Items.Count)
             {
-                textBoardItemsToAdd.Add(GetRandomTextBoardItem());
+                for (int i = Items.Count; i < desiredItemsCount; i++)
+                {
+                    Items.Add(GetRandomTextBoardItem());
+                }
+            }
+            else if (desiredItemsCount < Items.Count)
+            {
+                for (int i = Items.Count - 1; i >= desiredItemsCount; i--)
+                {
+                    Items.RemoveAt(i);
+                }
             }
 
-            foreach (var textBoardItemToAdd in textBoardItemsToAdd)
-            {
-                Items.Add(textBoardItemToAdd);
-            }
-
-            if (!isInitialTextSet && !string.IsNullOrWhiteSpace(Text))
+            if (!string.IsNullOrWhiteSpace(Text))
             {
                 SetText();
             }
@@ -278,10 +280,8 @@ namespace AmazingUWPToolkit.Controls
 
         private void SetText()
         {
-            if (string.IsNullOrWhiteSpace(RandomChars) || ColumnsCount == 0 || RowsCount == 0)
+            if (Items.Count == 0)
                 return;
-
-            isInitialTextSet = true;
 
             if (string.IsNullOrWhiteSpace(Text))
             {
@@ -367,6 +367,9 @@ namespace AmazingUWPToolkit.Controls
             foreach (var textBoardItemModel in textBoardItemsDictionary)
             {
                 var index = textBoardItemModel.Key;
+                if (index > Items.Count - 1)
+                    return;
+
                 var textBoardItem = textBoardItemModel.Value;
 
                 if (notRandomTextBoardItemModelsIndexes.Contains(index))
