@@ -18,8 +18,8 @@
                     </Grid.RowDefinitions>
 
                     <controls:TextBoard x:Name="TextBoard"
-                                        ColumnsCount="11"
-                                        RowsCount="11"
+                                        ColumnsCount="10"
+                                        RowsCount="10"
                                         Text="THIS IS TEST" />
 
                     <TextBox Grid.Row="1"
