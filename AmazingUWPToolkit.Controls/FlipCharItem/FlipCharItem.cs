@@ -229,7 +229,9 @@ namespace AmazingUWPToolkit.Controls
             if (rootPanel == null || rootPanel.Children.Count < 2)
                 return;
 
-            var charFontSize = Math.Min(ActualWidth, ActualHeight) / SizeToCharRatio; ;
+            var charFontSize = Math.Min(ActualWidth, ActualHeight) / SizeToCharRatio;
+            if (charFontSize == 0)
+                return;
 
             if (rootPanel.Children[0] is TextBlock currentTextBlock)
             {
