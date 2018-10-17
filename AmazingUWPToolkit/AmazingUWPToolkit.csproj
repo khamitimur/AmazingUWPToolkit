@@ -121,10 +121,10 @@
       <Version>2018.2.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.7</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="NullGuard.Fody">
-      <Version>1.8.0</Version>
+      <Version>1.8.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
