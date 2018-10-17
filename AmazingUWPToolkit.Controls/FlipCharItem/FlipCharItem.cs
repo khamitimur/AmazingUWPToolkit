@@ -125,7 +125,6 @@ namespace AmazingUWPToolkit.Controls
 
         private async void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // TODO: Не выстреливает при маленьком размере.
             Clip = new RectangleGeometry()
             {
                 Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height)
