@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -58,17 +57,29 @@ namespace AmazingUWPToolkit.Controls
             typeof(TextBoard),
             new PropertyMetadata(10, OnRowsCountPropertyChanged));
 
+        public static readonly DependencyProperty MinItemWidthProperty = DependencyProperty.Register(
+            nameof(MinItemWidth),
+            typeof(double),
+            typeof(TextBoard),
+            new PropertyMetadata(40d));
+
+        public static readonly DependencyProperty MinItemHeightProperty = DependencyProperty.Register(
+            nameof(MinItemHeight),
+            typeof(double),
+            typeof(TextBoard),
+            new PropertyMetadata(40d));
+
         public static readonly DependencyProperty MaxItemWidthProperty = DependencyProperty.Register(
             nameof(MaxItemWidth),
             typeof(double),
             typeof(TextBoard),
-            new PropertyMetadata(60, OnMaxItemWidthPropertyChanged));
+            new PropertyMetadata(60d, OnMaxItemWidthPropertyChanged));
 
         public static readonly DependencyProperty MaxItemHeightProperty = DependencyProperty.Register(
             nameof(MaxItemHeight),
             typeof(double),
             typeof(TextBoard),
-            new PropertyMetadata(60, OnMaxItemHeightPropertyChanged));
+            new PropertyMetadata(60d, OnMaxItemHeightPropertyChanged));
 
         #endregion
 
@@ -113,6 +124,18 @@ namespace AmazingUWPToolkit.Controls
         {
             get => (int)GetValue(RowsCountProperty);
             set => SetValue(RowsCountProperty, value);
+        }
+
+        public double MinItemWidth
+        {
+            get => (double)GetValue(MinItemWidthProperty);
+            set => SetValue(MinItemWidthProperty, value);
+        }
+
+        public double MinItemHeight
+        {
+            get => (double)GetValue(MinItemHeightProperty);
+            set => SetValue(MinItemHeightProperty, value);
         }
 
         public double MaxItemWidth
@@ -239,11 +262,14 @@ namespace AmazingUWPToolkit.Controls
                 var calculatedItemWidth = AvailableWidth / ColumnsCount;
                 var calculatedItemHeight = AvailableHeight / RowsCount;
 
-                // TODO: При маленьком размере происходит чёрти что.
-                itemsPanel.ItemWidth = Math.Min(calculatedItemWidth, calculatedItemHeight);
-                itemsPanel.ItemHeight = itemsPanel.ItemWidth;
+                var minValue = Math.Min(calculatedItemWidth, calculatedItemHeight);
+
+                itemsPanel.ItemWidth = minValue > MinItemWidth ? minValue : MinItemWidth;
+                itemsPanel.ItemHeight = minValue > MinItemHeight ? minValue : MinItemHeight;
             }
 
+            //itemsPanel.MinWidth = MinItemWidth * ColumnsCount;
+            //itemsPanel.MinHeight = MinItemHeight * RowsCount;
             itemsPanel.MaxWidth = itemsPanel.ItemWidth * ColumnsCount;
             itemsPanel.MaxHeight = itemsPanel.ItemHeight * RowsCount;
         }
