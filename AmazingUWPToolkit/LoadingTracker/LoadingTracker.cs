@@ -1,22 +1,21 @@
-﻿using System;
-
-namespace AmazingUWPToolkit
+﻿namespace AmazingUWPToolkit
 {
     public class LoadingTracker : ILoadingTracker
     {
         #region Fields
 
-        private readonly ILoadSupportedViewModel viewModel;
+        private readonly ILoadingTrackable loadingTrackable;
 
         #endregion
 
         #region Constructor
 
-        public LoadingTracker(ILoadSupportedViewModel viewModel)
+        public LoadingTracker(ILoadingTrackable loadingTrackable)
         {
-            this.viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-            this.viewModel.IsLoading = true;
-            this.viewModel.OnBeginLoading();
+            this.loadingTrackable = loadingTrackable;
+
+            this.loadingTrackable.IsLoading = true;
+            this.loadingTrackable.OnBeginLoading();
         }
 
         #endregion
@@ -25,8 +24,8 @@ namespace AmazingUWPToolkit
 
         public void Dispose()
         {
-            viewModel.IsLoading = false;
-            viewModel.OnEndLoading();
+            loadingTrackable.IsLoading = false;
+            loadingTrackable.OnEndLoading();
         }
 
         #endregion

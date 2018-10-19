@@ -1,6 +1,6 @@
 ﻿namespace AmazingUWPToolkit
 {
-    public interface ILoadSupportedViewModel
+    public interface ILoadingTrackable
     {
         #region Properties
 
