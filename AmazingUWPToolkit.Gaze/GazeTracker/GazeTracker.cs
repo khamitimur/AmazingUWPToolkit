@@ -1,6 +1,7 @@
 ﻿using AmazingUWPToolkit.Gaze.Controls;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Devices.Input.Preview;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -12,8 +13,6 @@ namespace AmazingUWPToolkit.Gaze
     public class GazeTracker : IGazeTracker
     {
         #region Fields
-
-        private bool isStarted;
 
         private const double TIMER_INTERVAL = 20;
         private const double ACTION_INTERVAL = 400;
@@ -35,8 +34,6 @@ namespace AmazingUWPToolkit.Gaze
         public GazeTracker()
         {
             Controls = new List<Control>();
-
-            gazeDeviceWatcherPreview = GazeInputSourcePreview.CreateWatcher();
 
             timer = new DispatcherTimer
             {
@@ -77,10 +74,10 @@ namespace AmazingUWPToolkit.Gaze
 
         public void Start()
         {
-            if (isStarted)
+            if (gazeDeviceWatcherPreview != null)
                 return;
 
-            isStarted = true;
+            gazeDeviceWatcherPreview = GazeInputSourcePreview.CreateWatcher();
 
             gazeDeviceWatcherPreview.Added += OnGazeDeviceWatcherAdded;
             gazeDeviceWatcherPreview.Updated += OnGazeDeviceWatcherUpdated;
@@ -91,40 +88,32 @@ namespace AmazingUWPToolkit.Gaze
 
         public void Stop()
         {
-            if (gazeDeviceWatcherPreview != null)
-            {
-                gazeDeviceWatcherPreview.Stop();
+            if (gazeDeviceWatcherPreview == null)
+                return;
 
-                gazeDeviceWatcherPreview.Added -= OnGazeDeviceWatcherAdded;
-                gazeDeviceWatcherPreview.Updated -= OnGazeDeviceWatcherUpdated;
-                gazeDeviceWatcherPreview.Removed -= OnGazeDeviceWatcherRemoved;
+            gazeDeviceWatcherPreview.Stop();
 
-                gazeDeviceWatcherPreview = null;
-            }
-        }
+            gazeDeviceWatcherPreview.Added -= OnGazeDeviceWatcherAdded;
+            gazeDeviceWatcherPreview.Updated -= OnGazeDeviceWatcherUpdated;
+            gazeDeviceWatcherPreview.Removed -= OnGazeDeviceWatcherRemoved;
 
-        #endregion
-
-        #region Static Methods
-
-        private static bool IsSupportedDevice(GazeDevicePreview gazeDevicePreview)
-        {
-            return gazeDevicePreview.CanTrackEyes &&
-                gazeDevicePreview.ConfigurationState == GazeDeviceConfigurationStatePreview.Ready;
+            gazeDeviceWatcherPreview = null;
         }
 
         #endregion
 
         #region Private Methods
 
-        private void OnGazeDeviceWatcherAdded(GazeDeviceWatcherPreview sender, GazeDeviceWatcherAddedPreviewEventArgs args)
+        private async void OnGazeDeviceWatcherAdded(GazeDeviceWatcherPreview sender, GazeDeviceWatcherAddedPreviewEventArgs args)
         {
-            StartGazeTrackingAsync(args.Device);
+            await StartGazeTrackingAsync(args.Device);
         }
 
-        private void OnGazeDeviceWatcherUpdated(GazeDeviceWatcherPreview sender, GazeDeviceWatcherUpdatedPreviewEventArgs args)
+        private async void OnGazeDeviceWatcherUpdated(GazeDeviceWatcherPreview sender, GazeDeviceWatcherUpdatedPreviewEventArgs args)
         {
-            StartGazeTrackingAsync(args.Device);
+            StopGazeTracking();
+
+            await StartGazeTrackingAsync(args.Device);
         }
 
         private void OnGazeDeviceWatcherRemoved(GazeDeviceWatcherPreview sender, GazeDeviceWatcherRemovedPreviewEventArgs args)
@@ -133,37 +122,44 @@ namespace AmazingUWPToolkit.Gaze
         }
 
         // TODO: Сделать нормальные диалоги.
-        private async void StartGazeTrackingAsync(GazeDevicePreview gazeDevice)
+        private async Task StartGazeTrackingAsync(GazeDevicePreview gazeDevice)
         {
-            if (IsSupportedDevice(gazeDevice))
-            {
-                gazeInputSourcePreview = GazeInputSourcePreview.GetForCurrentView();
+            if (!gazeDevice.CanTrackEyes)
+                return;
 
-                gazeInputSourcePreview.GazeMoved += OnGazeInputSourcePreviewGazeMoved;
-            }
-            else if (gazeDevice.ConfigurationState == GazeDeviceConfigurationStatePreview.UserCalibrationNeeded ||
-                     gazeDevice.ConfigurationState == GazeDeviceConfigurationStatePreview.ScreenSetupNeeded)
+            switch (gazeDevice.ConfigurationState)
             {
-                System.Diagnostics.Debug.WriteLine("Your device needs to calibrate. Please wait for it to finish.");
+                case GazeDeviceConfigurationStatePreview.Ready:
+                    {
+                        gazeInputSourcePreview = GazeInputSourcePreview.GetForCurrentView();
 
-                await gazeDevice.RequestCalibrationAsync();
-            }
-            else if (gazeDevice.ConfigurationState == GazeDeviceConfigurationStatePreview.Configuring)
-            {
-               System.Diagnostics.Debug.WriteLine("Your device is being configured. Please wait for it to finish");
-            }
-            else if (gazeDevice.ConfigurationState == GazeDeviceConfigurationStatePreview.Unknown)
-            {
-                System.Diagnostics.Debug.WriteLine("Your device is not ready. Please set up your device or reconfigure it.");
+                        gazeInputSourcePreview.GazeMoved += OnGazeInputSourcePreviewGazeMoved;
+                    }
+                    break;
+
+                case GazeDeviceConfigurationStatePreview.UserCalibrationNeeded:
+                case GazeDeviceConfigurationStatePreview.ScreenSetupNeeded:
+                    {
+                        await gazeDevice.RequestCalibrationAsync();
+                    }
+                    break;
+
+                case GazeDeviceConfigurationStatePreview.Configuring:
+                    break;
+
+                case GazeDeviceConfigurationStatePreview.Unknown:
+                    break;
             }
         }
 
         private void StopGazeTracking()
         {
-            if (gazeInputSourcePreview != null)
-            {
-                gazeInputSourcePreview.GazeMoved -= OnGazeInputSourcePreviewGazeMoved;
-            }
+            if (gazeInputSourcePreview == null)
+                return;
+
+            gazeInputSourcePreview.GazeMoved -= OnGazeInputSourcePreviewGazeMoved;
+
+            gazeInputSourcePreview = null;
         }
 
         private void OnGazeInputSourcePreviewGazeMoved(GazeInputSourcePreview sender, GazeMovedPreviewEventArgs args)
