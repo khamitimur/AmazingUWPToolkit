@@ -4,12 +4,6 @@ namespace AmazingUWPToolkit.Gaze
 {
     public interface IGazeTracker
     {
-        #region Properties
-
-        int ControlsCount { get; }
-
-        #endregion
-
         #region Methods
 
         bool AddControl(Control control);

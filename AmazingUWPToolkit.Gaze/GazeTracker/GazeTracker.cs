@@ -18,12 +18,12 @@ namespace AmazingUWPToolkit.Gaze
         private const double TIMER_INTERVAL = 20;
         private const double ACTION_INTERVAL = 400;
 
-        private static GazeDeviceWatcherPreview gazeDeviceWatcherPreview;
-        private static GazeInputSourcePreview gazeInputSourcePreview;
+        private GazeDeviceWatcherPreview gazeDeviceWatcherPreview;
+        private GazeInputSourcePreview gazeInputSourcePreview;
 
         private Control currentControlUnderGaze;
 
-        private static DispatcherTimer timer;
+        private DispatcherTimer timer;
         private double currentTimerValue;
         private bool isGazeDwelledCalled;
         private Point currentGazePoint;
@@ -54,8 +54,6 @@ namespace AmazingUWPToolkit.Gaze
         #endregion
 
         #region Overrides of IGazeTracker
-
-        public int ControlsCount => Controls?.Count ?? 0;
 
         public bool AddControl(Control control)
         {
@@ -162,7 +160,10 @@ namespace AmazingUWPToolkit.Gaze
 
         private void StopGazeTracking()
         {
-            gazeInputSourcePreview.GazeMoved -= OnGazeInputSourcePreviewGazeMoved;
+            if (gazeInputSourcePreview != null)
+            {
+                gazeInputSourcePreview.GazeMoved -= OnGazeInputSourcePreviewGazeMoved;
+            }
         }
 
         private void OnGazeInputSourcePreviewGazeMoved(GazeInputSourcePreview sender, GazeMovedPreviewEventArgs args)
