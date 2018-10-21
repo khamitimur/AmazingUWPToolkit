@@ -1,7 +1,8 @@
-﻿<Application x:Class="AmazingUWPToolkitDemo.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Application.Resources>
+﻿<caliburnMicro:CaliburnApplication x:Class="AmazingUWPToolkitDemo.App"
+                                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                   xmlns:caliburnMicro="using:Caliburn.Micro">
+    <caliburnMicro:CaliburnApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Dictionaries/TextBlock.xaml" />
@@ -70,5 +71,5 @@
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
-    </Application.Resources>
-</Application>
+    </caliburnMicro:CaliburnApplication.Resources>
+</caliburnMicro:CaliburnApplication>

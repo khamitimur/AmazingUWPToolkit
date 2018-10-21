@@ -1,22 +1,19 @@
 ﻿using AmazingUWPToolkit.ApplicatonView;
-using AmazingUWPToolkit.Controls;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace AmazingUWPToolkitDemo
+namespace AmazingUWPToolkitDemo.Views
 {
-    public sealed partial class MainPage : Page, INotifyPropertyChanged
+    public sealed partial class MainView : Page, INotifyPropertyChanged
     {
         #region Contructor
 
-        public MainPage()
+        public MainView()
         {
             InitializeComponent();
         }

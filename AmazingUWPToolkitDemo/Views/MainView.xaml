@@ -1,11 +1,24 @@
-﻿<Page x:Class="AmazingUWPToolkitDemo.MainPage"
+﻿<Page x:Class="AmazingUWPToolkitDemo.Views.MainView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:AmazingUWPToolkit.Controls"
-      xmlns:gazeControls="using:AmazingUWPToolkit.Gaze.Controls">
-    <Grid x:Name="LayoutRoot"
-          Background="{ThemeResource WindowBackgroundBrush}">
-        <Pivot Margin="{x:Bind ApplicationViewHelper.TitleBarMargin, Mode=OneWay}">
+      xmlns:amazingBehaviors="using:AmazingUWPToolkit.Behaviors"
+      xmlns:amazingControls="using:AmazingUWPToolkit.Controls"
+      xmlns:gazeControls="using:AmazingUWPToolkit.Gaze.Controls"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
+    <Grid>
+        <amazingControls:NavigationViewEx>
+
+            <!--<amazingControls:NavigationViewEx.MenuItems>
+                <NavigationViewItem Content="TextBoard"
+                                    Icon="Home" />
+                <NavigationViewItem Content="ApplicationViewHelper" />
+                <NavigationViewItem Content="Gaze" />
+            </amazingControls:NavigationViewEx.MenuItems>-->
+
+            <Frame Background="Red"/>
+        </amazingControls:NavigationViewEx>
+
+        <!--<Pivot Margin="{x:Bind ApplicationViewHelper.TitleBarMargin, Mode=OneWay}">
             <PivotItem Header="Controls">
                 <Grid Margin="0,20" />
             </PivotItem>
@@ -72,6 +85,6 @@
                     </Grid>
                 </Grid>
             </PivotItem>
-        </Pivot>
+        </Pivot>-->
     </Grid>
 </Page>

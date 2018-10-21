@@ -28,7 +28,7 @@ namespace AmazingUWPToolkit.Behaviors
 
         private void OnAssociatedObjectLoaded(object sender, RoutedEventArgs e)
         {
-            if (AssociatedObject.MenuItems?.Count == 1)
+            if (AssociatedObject.MenuItems == null || AssociatedObject.MenuItems.Count == 0)
                 return;
 
             AssociatedObject.SelectedItem = AssociatedObject.MenuItems[0];
